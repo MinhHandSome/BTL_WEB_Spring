@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<title th:utext="${title}"></title>
+	<style>
+		body {
+			height: 100vh;
+		}
+
+		* {
+			margin: 0;
+		}
+
+		.container-fluid {
+			padding-right: 0 !important;
+			padding-left: 0 !important;
+		}
+
+		.bg-img {
+			background: url("https://firebasestorage.googleapis.com/v0/b/fir-flutter-99d26.appspot.com/o/school.png?alt=media&token=aef27400-e5df-42d6-89b6-42d9e272078e");
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+
+		.centerss {
+			position: absolute;
+			left: 50%;
+			top: 40%;
+			transform: translate(-50%, -50%);
+			border: 5px solid #8ca7f1;
+			border-radius: 20px;
+			padding: 10px;
+
+
+		}
+	</style>
+</head>
+
+<body class="bg-img">
+	<!-- Include _menu.html -->
+	<th:block th:include="/_menu"></th:block>
+
+	<h2>Admin Page</h2>
+	<h3>Welcome :
+		<span th:utext="${#request.userPrincipal.name}"></span>
+	</h3>
+	<b>This is protected page!</b>
+
+	<br /><br />
+
+	<div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
+	<div class="container">
+		<div class="centerss">
+			<a href="/Student" class="btn btn-primary">Add Students</a>
+			<a href="/Teacher" class="btn btn-primary">Add Teachers</a>
+			<a href="/Subjects" class="btn btn-primary">Add Subjects</a>
+		
+			<a href="/Studentshow" class="btn btn-primary">Show Students</a>
+			<a href="/Teachershow" class="btn btn-primary">Show Teachers</a>
+		</div>
+	</div>
+</body>
+
+</html>

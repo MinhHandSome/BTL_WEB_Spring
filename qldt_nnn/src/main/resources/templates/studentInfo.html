@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <title>Info</title>
+   </head>
+   
+   <body>
+      <!-- Include _menu.html -->
+      <th:block th:include="/_menu"></th:block>
+      
+      <h1>>Hello Student</h1>
+   		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">FullName</th>
+					<th scope="col">DOB</th>
+					<th scope="col">Grade</th>
+					<th scope="col">MSV</th>
+					<th scope="col">Address</th>
+					<th scope="col">Phone number</th>
+					<th scope="col">Email</th>
+					<th scope="col">USERNAME</th>
+
+
+				</tr>
+			</thead>
+			<tbody>
+
+
+				<tr th:each="model:${student}">
+					<td th:text="${model.ID}"></td>
+					<td th:text="${model.fullName}"></td>
+					<td th:text="${model.DOB}"></td>
+					<td th:text="${model.Grade}"></td>
+					<td th:text="${model.MSV}"></td>
+					<td th:text="${model.Address}"></td>
+					<td th:text="${model.phoneNumber}"></td>
+					<td th:text="${model.email}"></td>
+					<td th:text="${model.appUser.userName}"></td>
+					
+				</tr>
+			</tbody>
+		</table>
+   </body>
+   
+</html>
