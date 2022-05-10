@@ -5,12 +5,15 @@ package qldt.controller
 import qldt.AppUser;
 import qldt.Student;
 import qldt.Teacher;
+import qldt.Subject;
 import qldt.UserRole;
 import qldt.data.StudentRepo;
+import qldt.data.SubjectRepo;
 import qldt.data.TeacherRepo;
 import qldt.service.AppRoleSer;
 import qldt.service.AppUserSer;
 import qldt.service.StudentSer;
+import qldt.service.SubjectSer;
 import qldt.service.TeacherSer;
 import qldt.service.UserRoleSer;
 import java.security.Principal;
@@ -44,6 +47,8 @@ public class AdminCon {
 	private StudentRepo studentRepo;
 	@Autowired
 	private TeacherRepo teacherRepo;
+	@Autowired
+	private SubjectSer subjectSer;
 
 	@PostMapping("/addStudent")
 	public String addStudent(@ModelAttribute Student student, @ModelAttribute AppUser appUser,
@@ -65,6 +70,7 @@ public class AdminCon {
 		session.setAttribute("msg", "Student Added Sucessfully...");
 		return "addStudent";
 	}
+
 	@PostMapping("/addTeacher")
 	public String addTeacher(@ModelAttribute Teacher teacher, @ModelAttribute AppUser appUser,
 			@ModelAttribute UserRole userRole, Model model, HttpSession session) {
@@ -74,7 +80,7 @@ public class AdminCon {
 		appUser.setEncrytedPassword(encodedPassword);
 		AppUser temp = appUserSer.addAppUser(appUser);
 		teacher.setAppUser(temp);
-	teacherSer.addTeacher(teacher);
+		teacherSer.addTeacher(teacher);
 		userRole.setAppUser(appUser);
 		userRole.setAppRole(appRoleSer.findAppRole("ROLE_USER_TEACHER"));
 		userRoleSer.addUserRole(userRole);
@@ -84,6 +90,28 @@ public class AdminCon {
 		model.addAttribute("newTeacher", new Teacher());
 		session.setAttribute("msg", "Teacher Added Sucessfully...");
 		return "addTeacher";
+	}
+
+	@PostMapping("/addSubject")
+	public String addSubject(@ModelAttribute Subject subject, Model model, HttpSession session) {
+		int check_existed = 0;
+		List<Subject> subjects = subjectSer.getSubject();
+		for (Subject subject1 : subjects) {
+			if (subject1.getName_subject().equalsIgnoreCase(subject.getName_subject())) {
+				check_existed = 1;
+				session.setAttribute("msg", "Subject Added Failed...");
+				break;
+			}
+		}
+		if (check_existed == 1) {
+			subjectSer.addSubject(subject);
+
+			session.setAttribute("msg", "Subject Added Sucessfully...");
+//			return "addSubject";
+		}
+//		return "redirect:/addSubject";
+		model.addAttribute("newSubject", new Subject());
+		return "addSubject";
 	}
 
 //    @PostMapping("AssignSubjectConform")
@@ -112,12 +140,21 @@ public class AdminCon {
 		return "addStudent";
 
 	}
+
 	@GetMapping("/Teacher")
 	public String Teacher(Model model) {
 		model.addAttribute("newAppUser", new AppUser());
 		model.addAttribute("newTeacher", new Teacher());
 		model.addAttribute("newUserRole", new UserRole());
 		return "addTeacher";
+
+	}
+
+	@GetMapping("/Subject")
+	public String Subject(Model model) {
+		model.addAttribute("newSubject", new Subject());
+
+		return "addSubject";
 
 	}
 
@@ -128,48 +165,56 @@ public class AdminCon {
 //
 //    }
 //
-	
+
 	@GetMapping("/student_home/Info")
-	public String Student_Info(Model model,Principal principal) {
+	public String Student_Info(Model model, Principal principal) {
 		List<Student> students = studentSer.getStudent();
-		String userName = principal.getName(); 
+		String userName = principal.getName();
 		AppUser appUser = appUserSer.findAppUserbyUsername(userName);
 		long userId = appUser.getUserId();
-		for(Student student:students) {
-			if(student.getAppUser().getUserId()==userId) {
-				model.addAttribute("student",student);
+		for (Student student : students) {
+			if (student.getAppUser().getUserId() == userId) {
+				model.addAttribute("student", student);
 				return "studentInfo";
 			}
 		}
-		return "studentInfo";	
+		return "studentInfo";
 	}
-	
+
 	@GetMapping("/teacher_home/Info")
-	public String Teacher_Info(Model model,Principal principal) {
+	public String Teacher_Info(Model model, Principal principal) {
 		List<Teacher> teachers = teacherSer.getTeacher();
-		String userName = principal.getName(); 
+		String userName = principal.getName();
 		AppUser appUser = appUserSer.findAppUserbyUsername(userName);
 		long userId = appUser.getUserId();
-		for(Teacher teacher:teachers) {
-			if(teacher.getAppUser().getUserId()==userId) {
-				model.addAttribute("teacher",teacher);
+		for (Teacher teacher : teachers) {
+			if (teacher.getAppUser().getUserId() == userId) {
+				model.addAttribute("teacher", teacher);
 				return "teacherInfo";
 			}
 		}
-		return "teacherInfo";	
+		return "teacherInfo";
 	}
-	
+
 	@GetMapping("/Studentshow")
 	public String STHome(Model model) {
 		List<Student> student = studentSer.getStudent();
 		model.addAttribute("student", student);
 		return "Studentshow";
 	}
+
 	@GetMapping("/Teachershow")
 	public String TeHome(Model model) {
 		List<Teacher> teacher = teacherSer.getTeacher();
 		model.addAttribute("teacher", teacher);
 		return "Teachershow";
+	}
+
+	@GetMapping("/Subjectshow")
+	public String SuHome(Model model) {
+		List<Subject> subject = subjectSer.getSubject();
+		model.addAttribute("subject", subject);
+		return "Subjectshow";
 	}
 
 	@GetMapping("/Studentshow/edit/{ID}")
@@ -178,13 +223,14 @@ public class AdminCon {
 		m.addAttribute("student", student);
 		return "StudentEdit";
 	}
+
 	@GetMapping("/Teachershow/edit/{ID}")
 	public String editT(@PathVariable("ID") long ID, Model m) {
 		Teacher teacher = teacherSer.getStdByID(ID);
 		m.addAttribute("teacher", teacher);
 		return "TeacherEdit";
 	}
-	
+
 	@GetMapping("/Studentshow/edit_account/{ID}")
 	public String editAccountStudent(@PathVariable("ID") long ID, Model m) {
 
@@ -193,6 +239,7 @@ public class AdminCon {
 
 		return "EditAccountStudent";
 	}
+
 	@GetMapping("/Teachershow/edit_account/{ID}")
 	public String editAccountTeacher(@PathVariable("ID") long ID, Model m) {
 
@@ -212,6 +259,7 @@ public class AdminCon {
 		session.setAttribute("msg", "Student Edited Sucessfully...");
 		return "addStudent";
 	}
+
 	@PostMapping("/Teachershow/edit/UpdateTeacher")
 	public String UpdateTeacher(@ModelAttribute Teacher teacher, Model model, HttpSession session) {
 
@@ -237,6 +285,7 @@ public class AdminCon {
 		session.setAttribute("msg", "User Student edited Sucessfully...");
 		return "redirect:/Studentshow";
 	}
+
 	@PostMapping("/Teachershow/edit_account/UpdateAccountTeacher")
 	public String UpdateAccountTeacher(@ModelAttribute AppUser appUser, Model model, HttpSession session) {
 
@@ -264,6 +313,7 @@ public class AdminCon {
 		session.setAttribute("msg", "The User ID " + ID + " Deleted Succesfully");
 		return "redirect:/Studentshow";
 	}
+
 	@GetMapping("/Teachershow/delete/{ID}")
 	public String deleteTeacher(@PathVariable("ID") Long ID, HttpSession session) {
 		Teacher teacher = teacherSer.getStdByID(ID);
