@@ -1,17 +1,33 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<title>Access Denied</title>
+	<title>Access Denied</title>
 </head>
+<style>
+	body {
+		font-family: sans-serif;
+	}
+	
+	.btnMenu:link,
+	.btnMenu:visited {
+		background-color: #4e57a6;
+		color: white;
+		padding: 14px 25px;
+		border-radius: 5px;
+		margin: 0px 10px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+	}
+</style>
 
 <body>
-    <!-- Include _menu.html -->
-    <th:block th:include="/_menu"></th:block>
+	<!-- Include _menu.html -->
+	<th:block th:include="/_menu"></th:block>
 
-    <h3 th:if="${message != null}" th:utext="${message}" style="color: red;"></h3>
+	<h3 th:if="${message != null}" th:utext="${message}" style="color: red;"></h3>
 
-    <div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
-    
 </body>
 
 </html>
