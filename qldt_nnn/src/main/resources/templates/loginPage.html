@@ -1,54 +1,148 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-   <head>
-      <title>Login</title>
-   </head>
-   <body>
-      <!-- Include _menu.html -->
-      <th:block th:include="/_menu"></th:block>
-      
-      <h1>Login</h1>
-      
-      <!-- /login?error=true -->
-      <div th:if="${#request.getParameter('error') == 'true'}"
-            style="color:red;margin:10px 0px;">
-         Login Failed!!!<br />
-         Reason :
-         <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
-            th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
-                Static summary
-         </span>
-           <h>hihih</h>
-      </div>
-     
-      <h3>Enter user name and password:</h3>
-      <form name='f' th:action="@{/j_spring_security_check}" method='POST'>
-         <table>
-            <tr>
-               <td>User:</td>
-               <td><input type='text' name='username' value=''></td>
-            </tr>
-            <tr>
-               <td>Password:</td>
-               <td><input type='password' name='password' /></td>
-            </tr>
-            <tr>
-               <td>Remember Me?</td>
-               <td><input type="checkbox" name="remember-me" /></td>
-            </tr>            
-            <tr>
-               <td><input name="submit" type="submit" value="submit" /></td>
-            </tr>
-         </table>
-      </form>
-      
-      <br>
-      Username/pass:
-      <ul>
-        <li>dbuser1/123</li>
-        <li>dbadmin1/123</li>
-      </ul>  
-      
-   </body>
-   
+
+<head>
+	<title>Login</title>
+
+	<style>
+		body {
+			padding: 50px;
+		
+			background-color: rgb(192, 192, 192);
+		}
+
+		* {
+			margin: 0 auto;
+			padding: 0;
+
+		}
+
+		.form-tt {
+			width: 400px;
+			border-radius: 10px;
+			overflow: hidden;
+			padding: 55px 55px 37px;
+			background: rgb(128, 255, 255);
+			background: -webkit-linear-gradient(top, rgb(0, 0, 64), rgb(0, 0, 0));
+			background: -o-linear-gradient(top, rgb(0, 0, 64), #b224ef);
+			background: -moz-linear-gradient(top, rgb(255, 255, 255), #b224ef);
+			background: linear-gradient(top, rgb(0, 0, 0), #b224ef);
+			text-align: center;
+		}
+
+		.form-tt h2 {
+			font-size: 30px;
+			color: #fff;
+			line-height: 1.2;
+			text-align: center;
+			text-transform: uppercase;
+			display: block;
+			margin-bottom: 30px;
+		}
+
+		.form-tt input[type=text],
+		.form-tt input[type=password] {
+			font-family: Poppins-Regular;
+			font-size: 18px;
+			color: rgb(255, 255, 255);
+			line-height: 1.2;
+			display: block;
+			width: calc(100% - 10px);
+			height: 45px;
+			background: 0 0;
+			padding: 10px 0;
+			border-bottom: 2px solid rgb(255, 255, 255) !important;
+			border: 0;
+			outline: 0;
+		}
+
+		.form-tt input[type=text]::focus,
+		.form-tt input[type=password]::focus {
+			color: rgb(255, 255, 0);
+		}
+
+		.form-tt input[type=password] {
+			margin-bottom: 20px;
+		}
+
+		.form-tt input::placeholder {
+			color: #fff;
+		}
+
+		.checkbox {
+			display: block;
+		}
+
+		.form-tt input[type=submit] {
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #555;
+			line-height: 1.2;
+			padding: 0 20px;
+			min-width: 120px;
+			height: 50px;
+			border-radius: 25px;
+			background: #fff;
+			position: relative;
+			z-index: 1;
+			border: 0;
+			outline: 0;
+			display: block;
+			margin: 30px auto;
+		}
+
+		#checkbox {
+			display: inline-block;
+			margin-right: 10px;
+		}
+
+		.checkbox-text {
+			color: rgb(255, 255, 255);
+			font-size: 13 pt;
+		}
+
+		.psw-text {
+			color: #fff;
+		}
+	</style>
+	<link href="/static/style_login.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<!-- Include _menu.html -->
+	<th:block th:include="/_menu"></th:block>
+
+	<div class="form-tt">
+		<h2>Login</h2>
+
+		<!-- /login?error=true -->
+		<div th:if="${#request.getParameter('error') == 'true'}" style="color:red;margin:10px 0px;">
+			Login Failed!!!<br />
+			Reason :
+			<span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+				th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
+				Static summary
+			</span>
+			<h>hihih</h>
+		</div>
+		<form name='f' th:action="@{/j_spring_security_check}" method='POST'>
+
+			<input type='text' name='username' placeholder="Username" value='' />
+
+			<input type='password' name='password' placeholder="Password" />
+
+			<input type="checkbox" name="remember-me" /><label class="checkbox-text">Remember me</label>
+
+			<input name="submit" type="submit" value="Submit" />
+
+		</form>
+
+
+
+
+
+	</div>
+</body>
+
+
 </html>
