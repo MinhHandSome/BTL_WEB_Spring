@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @Entity
-public class Classs  {
+public class ClassHP  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
