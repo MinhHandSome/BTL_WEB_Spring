@@ -26,14 +26,24 @@ public class SubjectSer {
 	    public Subject getSjdByID(long ID){
 
 	        Optional<Subject> model=subjectRepo.findById(ID);
-
+	        
 	        if (model.isPresent())
 	        {
 	            return model.get();
 	        }
 	        return null;
 	    }
-	   
+	    public Subject getSjByName(String name_subject) {
+	    	List<Subject> subjects = subjectRepo.findAll();
+	    	Subject result = new Subject();
+	    	for(Subject subject: subjects) {
+	    		if(subject.getName_subject().equalsIgnoreCase(name_subject)) {
+	    			result = subject;
+	    			break;
+	    		}
+	    	}
+	    	return result;
+	    }
 	    public void deleteBySubjectId(Long ID) { 
 	    	subjectRepo.deleteById(ID); 
 	    	

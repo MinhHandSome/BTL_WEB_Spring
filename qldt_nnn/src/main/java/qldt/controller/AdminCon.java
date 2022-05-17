@@ -7,11 +7,13 @@ import qldt.Student;
 import qldt.Teacher;
 import qldt.Subject;
 import qldt.UserRole;
+import qldt.Classs;
 import qldt.data.StudentRepo;
 import qldt.data.SubjectRepo;
 import qldt.data.TeacherRepo;
 import qldt.service.AppRoleSer;
 import qldt.service.AppUserSer;
+import qldt.service.ClassSer;
 import qldt.service.StudentSer;
 import qldt.service.SubjectSer;
 import qldt.service.TeacherSer;
@@ -49,6 +51,8 @@ public class AdminCon {
 	private TeacherRepo teacherRepo;
 	@Autowired
 	private SubjectSer subjectSer;
+	@Autowired
+	private ClassSer classSer;
 
 	@PostMapping("/addStudent")
 	public String addStudent(@ModelAttribute Student student, @ModelAttribute AppUser appUser,
@@ -103,15 +107,45 @@ public class AdminCon {
 				break;
 			}
 		}
-		if (check_existed == 1) {
+		if (check_existed == 0) {
 			subjectSer.addSubject(subject);
-
 			session.setAttribute("msg", "Subject Added Sucessfully...");
-//			return "addSubject";
+
 		}
-//		return "redirect:/addSubject";
+
 		model.addAttribute("newSubject", new Subject());
 		return "addSubject";
+		// return "redirect:/Teachershow";
+	}
+
+	
+	@PostMapping("/addClass")
+	public String addClass(@ModelAttribute Classs classs, Model model, HttpSession session) {
+		System.out.println(classs.getTeacher().getFullName());
+		System.out.println(classs.getSubject().getName_subject());
+		Subject subject = subjectSer.getSjByName(classs.getSubject().getName_subject());
+		
+//subjectSer.addSubject(subject);
+		// Subject subject = subjectSer.getSjByName("Lập trình web");
+		Teacher teacher = teacherSer.getTByName(classs.getTeacher().getFullName());
+		// Teacher teacher = teacherSer.getTByName("Bùi Quỳnh Phương");
+		  
+		classs.setTeacher(teacher);
+		classs.setSubject(subject);
+
+		classSer.addClass(classs);
+		List<Subject> subjects = subjectSer.getSubject();
+		List<Teacher> teachers = teacherSer.getTeacher();
+		model.addAttribute("subjects", subjects);
+		model.addAttribute("teachers", teachers);
+		model.addAttribute("newClass", new Classs());
+//		Long id3=Long.parseLong("10");
+//		Long id4=Long.parseLong("10");
+//		model.addAttribute("ID1", id3);
+//		model.addAttribute("ID2", id4);
+//		model.addAttribute("subject11", new Subject());
+//		model.addAttribute("teacher11", new Teacher());
+		return "addClass";
 	}
 
 //    @PostMapping("AssignSubjectConform")
@@ -155,6 +189,24 @@ public class AdminCon {
 		model.addAttribute("newSubject", new Subject());
 
 		return "addSubject";
+
+	}
+
+	@GetMapping("/Class")
+	public String Class(Model model) {
+		List<Subject> subjects = subjectSer.getSubject();
+		List<Teacher> teachers = teacherSer.getTeacher();
+		model.addAttribute("subjects", subjects);
+		model.addAttribute("teachers", teachers);
+//		Long id1=Long.parseLong("10");
+//		Long id2=Long.parseLong("10");
+//		model.addAttribute("ID1", id1);
+//		model.addAttribute("ID2", id2);
+//		model.addAttribute("subject11", new Subject());
+//		model.addAttribute("teacher11", new Teacher());
+		model.addAttribute("newClass", new Classs());
+
+		return "addClass";
 
 	}
 
