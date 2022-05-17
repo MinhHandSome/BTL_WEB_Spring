@@ -1,15 +1,38 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-   <head>
-      <title th:utext="${title}"></title>
-   </head>
-   
-   <body>
-   
-      <!-- Include _menu.html -->
-      <th:block th:include="/_menu"></th:block>  
-      
-      <h2>Message : <span th:utext="${message}"></span></h2>
-      
-   </body>
+
+<head>
+	<title th:utext="${title}"></title>
+</head>
+<style>
+	body {
+		font-family: sans-serif;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-size: cover;
+		background-image: url('http://anhnendep.net/wp-content/uploads/2016/01/hinh-ngoc-trinh-dep-6.jpg');
+	}
+
+	.btnMenu:link,
+	.btnMenu:visited {
+		background-color: #4e57a6;
+		color: white;
+		padding: 14px 25px;
+		border-radius: 5px;
+		margin: 0px 10px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+	}
+</style>
+
+<body>
+
+	<!-- Include _menu.html -->
+	<th:block th:include="/_menu"></th:block>
+
+	<h2>Message : <span th:utext="${message}"></span></h2>
+
+</body>
+
 </html>

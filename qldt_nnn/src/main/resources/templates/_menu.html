@@ -1,26 +1,19 @@
-<div xmlns:th="http://www.thymeleaf.org"
-     style="border: 1px solid #ccc;padding:5px;margin-bottom:20px;">
+<div xmlns:th="http://www.thymeleaf.org" style="border: 1px solid #ccc;padding:5px;margin-bottom:20px;height:50px;background-color: #e9eaf2;
+		border-radius: 5px;
+align-items: center;
+display: flex;
+justify-content: center;">
 
-  <a th:href="@{/}">Home</a>
+	<a class="btnMenu" th:href="@{/}">Home</a>
 
-     | &nbsp;
- 
-   <a th:href="@{/userInfo}">User Info</a>
- 
-     | &nbsp;
- 
-   <a th:href="@{/admin}">Admin</a>
-   
-     | &nbsp;
-     
-      <a th:href="@{/student_home}">Student</a>
-   
-     | &nbsp;
-     
-      <a th:href="@{/teacher_home}">Teacher</a>
-   
-     | &nbsp;
-     
-   <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
- 
+	<a class="btnMenu" th:href="@{/userInfo}">User Info</a>
+
+	<a class="btnMenu" th:href="@{/admin}">Admin</a>
+
+	<a class="btnMenu" th:href="@{/student_home}">Student</a>
+
+	<a class="btnMenu" th:href="@{/teacher_home}">Teacher</a>
+
+	<a class="btnMenu" th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
+
 </div>

@@ -1,15 +1,49 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-   <head>
-      <title>Logout</title>
-   </head>
+
+<head>
+	<title>Logout</title>
+</head>
+<style>
+	body {
+		font-family: sans-serif;
+	}
+	
    
-   <body>
-      <!-- Include _menu.html -->
-      <th:block th:include="/_menu"></th:block>
-      
-      <h1>>Hello Student</h1>
-   		<a th:href='@{/student_home/Info}'>My Info</a>
-   </body>
-   
+	.btnMenu:link,
+	.btnMenu:visited {
+		background-color: #4e57a6;
+		color: white;
+		padding: 14px 25px;
+		border-radius: 5px;
+		margin: 0px 10px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+	}
+
+	.btnShowInfo:link,
+	.btnShowInfo:visited {
+		background-color: #85aded;
+		color: white;
+		padding: 14px 25px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+	}
+
+	.btnShowInfo:hover,
+	.btnShowInfo:active {
+		background-color: #a1bff0;
+	}
+</style>
+
+<body>
+	<!-- Include _menu.html -->
+	<th:block th:include="/_menu"></th:block>
+
+	<h1>>Hello Student</h1>
+	<a class="btnShowInfo" th:href='@{/student_home/Info}'>My Info</a>
+</body>
+
 </html>
