@@ -70,7 +70,6 @@
 
 
 
-
 </head>
 
 <body class="bg-img">
@@ -95,25 +94,28 @@
 			<thead>
 				<tr>
 					<th scope="col">ID</th>
-					<th scope="col">Name Subject</th>
-					<th scope="col">Duration </th>
+					<th scope="col">SUBJECT</th>
+					<th scope="col">TEACHER</th>
+					<th scope="col">ROOM</th>
+					<th scope="col">TIME</th>
 					
-					
-
+				
 
 				</tr>
 			</thead>
 			<tbody>
 
 
-				<tr th:each="model:${subject}">
+				<tr th:each="model:${classHP}">
 					<td th:text="${model.ID}"></td>
-					<td th:text="${model.name_subject}"></td>
-					<td th:text="${model.duration_month}"></td>
+					<td th:text="${model.subject.name_subject}"></td>
+					<td th:text="${model.teacher.fullName}"></td>
+					<td th:text="${model.room}"></td>
+					<td th:text="${model.time}"></td>
 					
 					<td>
-						<a class="btn btn-sm btn-primary" th:href="@{'/Subjectshow/edit/' + ${model.ID}}">Edit</a>
-						<a class="btn btn-sm btn-danger" th:href="@{'/Subjectshow/delete/' + ${model.ID}}">Delete</a>
+						<a class="btn btn-sm btn-primary" th:href="@{'/Studentshow/edit/' + ${model.ID}}">Edit</a>
+						<a class="btn btn-sm btn-danger" th:href="@{'/Studentshow/delete/' + ${model.ID}}">Delete</a>
 						
 					</td>
 				</tr>

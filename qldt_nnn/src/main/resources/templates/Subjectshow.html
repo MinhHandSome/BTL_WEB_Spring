@@ -13,37 +13,62 @@
 	<title></title>
 	<style>
 		body {
-			height: 100vh;
+			font-family: sans-serif;
 		}
 
-		* {
-			margin: 0;
-		}
-
-
-		.bg-img {
-			background: url("https://firebasestorage.googleapis.com/v0/b/fir-flutter-99d26.appspot.com/o/backg.png?alt=media&token=bc9d8268-5dd5-4513-9374-70d971c7c65f");
-			background-position: center;
-			background-repeat: no-repeat;
-			background-size: cover;
-		}
-
-		.centerss {
-
-			border: 5px solid #8ca7f1;
-			border-radius: 20px;
-			padding: 10px;
-		}
-
-		.formde {
-			margin: 2rem 30rem 2rem;
-		}
-
-		h2 {
+		.btnMenu:link,
+		.btnMenu:visited {
+			background-color: #4e57a6;
+			color: white;
+			padding: 14px 25px;
+			border-radius: 5px;
+			margin: 0px 10px;
 			text-align: center;
-			padding: 2rem;
+			text-decoration: none;
+			display: inline-block;
+		}
+
+		.btnMenu:hover,
+		.btnMenu:active {
+			background-color: #a1bff0;
+		}
+
+		th,
+		td {
+			border: 1px solid #352f91;
+			padding: 8px;
+		}
+
+		table {
+			border-collapse: collapse;
+			border: 1px solid #352f91;
+			text-align: center;
+			vertical-align: middle;
+		}
+
+		thead th {
+			width: 9%;
+		}
+
+		thead {
+			background-color: #352f91;
+			color: white;
+			font-size: 0.875rem;
+			text-transform: uppercase;
+			letter-spacing: 2%;
+		}
+
+
+		tbody tr:nth-child(odd) {
+			background-color: #fff;
+		}
+
+		tbody tr:nth-child(even) {
+			background-color: #eee;
 		}
 	</style>
+
+
 
 
 </head>

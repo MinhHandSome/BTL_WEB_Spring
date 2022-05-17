@@ -7,7 +7,7 @@ import qldt.Student;
 import qldt.Teacher;
 import qldt.Subject;
 import qldt.UserRole;
-import qldt.Classs;
+import qldt.ClassHP;
 import qldt.data.StudentRepo;
 import qldt.data.SubjectRepo;
 import qldt.data.TeacherRepo;
@@ -118,54 +118,25 @@ public class AdminCon {
 		// return "redirect:/Teachershow";
 	}
 
-	
 	@PostMapping("/addClass")
-	public String addClass(@ModelAttribute Classs classs, Model model, HttpSession session) {
-		System.out.println(classs.getTeacher().getFullName());
-		System.out.println(classs.getSubject().getName_subject());
-		Subject subject = subjectSer.getSjByName(classs.getSubject().getName_subject());
-		
-//subjectSer.addSubject(subject);
-		// Subject subject = subjectSer.getSjByName("Lập trình web");
-		Teacher teacher = teacherSer.getTByName(classs.getTeacher().getFullName());
-		// Teacher teacher = teacherSer.getTByName("Bùi Quỳnh Phương");
-		  
-		classs.setTeacher(teacher);
-		classs.setSubject(subject);
+	public String addClass(@ModelAttribute ClassHP classHP, Model model, HttpSession session) {
+		System.out.println(classHP.getTeacher().getFullName());
+		System.out.println(classHP.getSubject().getName_subject());
+		Subject subject = subjectSer.getSjByName(classHP.getSubject().getName_subject());
+		Teacher teacher = teacherSer.getTByName(classHP.getTeacher().getFullName());
 
-		classSer.addClass(classs);
+		classHP.setTeacher(teacher);
+		classHP.setSubject(subject);
+
+		classSer.addClass(classHP);
 		List<Subject> subjects = subjectSer.getSubject();
 		List<Teacher> teachers = teacherSer.getTeacher();
 		model.addAttribute("subjects", subjects);
 		model.addAttribute("teachers", teachers);
-		model.addAttribute("newClass", new Classs());
-//		Long id3=Long.parseLong("10");
-//		Long id4=Long.parseLong("10");
-//		model.addAttribute("ID1", id3);
-//		model.addAttribute("ID2", id4);
-//		model.addAttribute("subject11", new Subject());
-//		model.addAttribute("teacher11", new Teacher());
+		model.addAttribute("newClass", new ClassHP());
+
 		return "addClass";
 	}
-
-//    @PostMapping("AssignSubjectConform")
-//    public String AssignSubjectConform(@ModelAttribute Student student, Model model){
-////        System.out.println("type added");
-////        StudentSer.addStudent(Student);
-//        Student student1=studentRepo.findById(student.getID()).get();
-//        student1.setSubjects(student.getSubjects());
-//
-//
-//
-//
-//        studentSer.addStudent(student1);
-//
-//        List<Student> student2 =studentSer.getStudent();
-//        model.addAttribute("student",  student2);
-//
-//        return "Studentshow";
-//    }
-
 	@GetMapping("/Student")
 	public String Student(Model model) {
 		model.addAttribute("newAppUser", new AppUser());
@@ -198,13 +169,7 @@ public class AdminCon {
 		List<Teacher> teachers = teacherSer.getTeacher();
 		model.addAttribute("subjects", subjects);
 		model.addAttribute("teachers", teachers);
-//		Long id1=Long.parseLong("10");
-//		Long id2=Long.parseLong("10");
-//		model.addAttribute("ID1", id1);
-//		model.addAttribute("ID2", id2);
-//		model.addAttribute("subject11", new Subject());
-//		model.addAttribute("teacher11", new Teacher());
-		model.addAttribute("newClass", new Classs());
+		model.addAttribute("newClass", new ClassHP());
 
 		return "addClass";
 
@@ -268,6 +233,14 @@ public class AdminCon {
 		model.addAttribute("subject", subject);
 		return "Subjectshow";
 	}
+	
+	@GetMapping("/Classshow")
+	public String ClHome(Model model) {
+		List<ClassHP> classHP = classSer.getClassHP();
+		model.addAttribute("classHP", classHP);
+		return "Classshow";
+	}
+
 
 	@GetMapping("/Studentshow/edit/{ID}")
 	public String editST(@PathVariable("ID") long ID, Model m) {
