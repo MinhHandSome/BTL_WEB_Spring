@@ -22,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 public class Subject {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private Long ID;
 	@Column(name = "name_subject", length = 36, nullable = false)
 	private String name_subject;
