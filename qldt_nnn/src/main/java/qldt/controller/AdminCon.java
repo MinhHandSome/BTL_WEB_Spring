@@ -98,21 +98,14 @@ public class AdminCon {
 
 	@PostMapping("/addSubject")
 	public String addSubject(@ModelAttribute Subject subject, Model model, HttpSession session) {
-		int check_existed = 0;
-		List<Subject> subjects = subjectSer.getSubject();
-		for (Subject subject1 : subjects) {
-			if (subject1.getName_subject().equalsIgnoreCase(subject.getName_subject())) {
-				check_existed = 1;
-				session.setAttribute("msg", "Subject Added Failed...");
-				break;
-			}
-		}
-		if (check_existed == 0) {
+		
+		if (!subjectSer.checkExistedNameSubject(subject.getName_subject())) {
 			subjectSer.addSubject(subject);
 			session.setAttribute("msg", "Subject Added Sucessfully...");
-
 		}
-
+		else {
+			session.setAttribute("msg", "Subject Added Failed...");
+		}
 		model.addAttribute("newSubject", new Subject());
 		return "addSubject";
 		// return "redirect:/Teachershow";
@@ -128,7 +121,14 @@ public class AdminCon {
 		classHP.setTeacher(teacher);
 		classHP.setSubject(subject);
 
-		classSer.addClass(classHP);
+		if(!classSer.checkExistedRoomTime(classHP.getRoom(), classHP.getTime())) {
+			classSer.addClass(classHP);
+			session.setAttribute("msg", "Class Added Sucessfully...");
+		}
+		else {
+			session.setAttribute("msg", "Class Added Failed...");
+		}
+		
 		List<Subject> subjects = subjectSer.getSubject();
 		List<Teacher> teachers = teacherSer.getTeacher();
 		model.addAttribute("subjects", subjects);
