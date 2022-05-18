@@ -44,6 +44,16 @@ public class SubjectSer {
 	    	}
 	    	return result;
 	    }
+	    public boolean checkExistedNameSubject(String nameSubject) {
+	    	List<Subject> subjects = subjectRepo.findAll();
+	    	boolean check_existed= false;
+	    	for( Subject subject: subjects) {
+	    		if(subject.getName_subject().equalsIgnoreCase(nameSubject));
+	    		check_existed =true;
+	    		break;
+	    	}
+	    	return check_existed;
+	    }
 	    public void deleteBySubjectId(Long ID) { 
 	    	subjectRepo.deleteById(ID); 
 	    	

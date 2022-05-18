@@ -21,4 +21,16 @@ public class ClassSer {
 	public List<ClassHP> getClassHP() {
 		return classRepo.findAll();
 	}
+	public boolean  checkExistedRoomTime(String room, String time) {
+		List<ClassHP> classHPs = classRepo.findAll();
+		boolean check_exsited = false;
+		for(ClassHP classHP: classHPs) {
+			if(classHP.getRoom().equalsIgnoreCase(room) && classHP.getTime().equalsIgnoreCase(time)) {
+				check_exsited = true;
+				break;
+			}
+		}
+		return check_exsited;
+	}
+
 }
