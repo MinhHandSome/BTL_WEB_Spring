@@ -61,17 +61,23 @@ public class AdminCon {
 		String encodedPassword = passwordEncoder.encode(appUser.getEncrytedPassword());
 		appUser.setEnabled(true);
 		appUser.setEncrytedPassword(encodedPassword);
-		AppUser temp = appUserSer.addAppUser(appUser);
-		student.setAppUser(temp);
-		studentSer.addStudent(student);
-		userRole.setAppUser(appUser);
-		userRole.setAppRole(appRoleSer.findAppRole("ROLE_USER"));
-		userRoleSer.addUserRole(userRole);
+		if (studentSer.checkExistEmail(student.getEmail()) || studentSer.checkExistMSV(student.getMSV())
+				|| appUserSer.checkExistedUserName(appUser.getUserName())) {
+			session.setAttribute("msg", "Student Added Failed...");
+		} else {
+			AppUser temp = appUserSer.addAppUser(appUser);
+			student.setAppUser(temp);
+			studentSer.addStudent(student);
+			userRole.setAppUser(appUser);
+			userRole.setAppRole(appRoleSer.findAppRole("ROLE_USER"));
+			userRoleSer.addUserRole(userRole);
+			session.setAttribute("msg", "Student Added Sucessfully...");
+		}
 
 		model.addAttribute("newUserRole", new UserRole());
 		model.addAttribute("newAppUser", new AppUser());
 		model.addAttribute("newStudent", new Student());
-		session.setAttribute("msg", "Student Added Sucessfully...");
+
 		return "addStudent";
 	}
 
@@ -82,28 +88,32 @@ public class AdminCon {
 		String encodedPassword = passwordEncoder.encode(appUser.getEncrytedPassword());
 		appUser.setEnabled(true);
 		appUser.setEncrytedPassword(encodedPassword);
-		AppUser temp = appUserSer.addAppUser(appUser);
-		teacher.setAppUser(temp);
-		teacherSer.addTeacher(teacher);
-		userRole.setAppUser(appUser);
-		userRole.setAppRole(appRoleSer.findAppRole("ROLE_USER_TEACHER"));
-		userRoleSer.addUserRole(userRole);
+		if (teacherSer.checkExistEmail(teacher.getEmail()) || appUserSer.checkExistedUserName(appUser.getUserName())) {
+			session.setAttribute("msg", "Teacher Added Failed...");
+		} else {
+			AppUser temp = appUserSer.addAppUser(appUser);
+			teacher.setAppUser(temp);
+			teacherSer.addTeacher(teacher);
+			userRole.setAppUser(appUser);
+			userRole.setAppRole(appRoleSer.findAppRole("ROLE_USER_TEACHER"));
+			userRoleSer.addUserRole(userRole);
+			session.setAttribute("msg", "Teacher Added Sucessfully...");
+		}
 
 		model.addAttribute("newUserRole", new UserRole());
 		model.addAttribute("newAppUser", new AppUser());
 		model.addAttribute("newTeacher", new Teacher());
-		session.setAttribute("msg", "Teacher Added Sucessfully...");
+
 		return "addTeacher";
 	}
 
 	@PostMapping("/addSubject")
 	public String addSubject(@ModelAttribute Subject subject, Model model, HttpSession session) {
-		
+
 		if (!subjectSer.checkExistedNameSubject(subject.getName_subject())) {
 			subjectSer.addSubject(subject);
 			session.setAttribute("msg", "Subject Added Sucessfully...");
-		}
-		else {
+		} else {
 			session.setAttribute("msg", "Subject Added Failed...");
 		}
 		model.addAttribute("newSubject", new Subject());
@@ -121,14 +131,13 @@ public class AdminCon {
 		classHP.setTeacher(teacher);
 		classHP.setSubject(subject);
 
-		if(!classSer.checkExistedRoomTime(classHP.getRoom(), classHP.getTime())) {
+		if (!classSer.checkExistedRoomTime(classHP.getRoom(), classHP.getTime())) {
 			classSer.addClass(classHP);
 			session.setAttribute("msg", "Class Added Sucessfully...");
-		}
-		else {
+		} else {
 			session.setAttribute("msg", "Class Added Failed...");
 		}
-		
+
 		List<Subject> subjects = subjectSer.getSubject();
 		List<Teacher> teachers = teacherSer.getTeacher();
 		model.addAttribute("subjects", subjects);
@@ -137,6 +146,7 @@ public class AdminCon {
 
 		return "addClass";
 	}
+
 	@GetMapping("/Student")
 	public String Student(Model model) {
 		model.addAttribute("newAppUser", new AppUser());
@@ -233,14 +243,13 @@ public class AdminCon {
 		model.addAttribute("subject", subject);
 		return "Subjectshow";
 	}
-	
+
 	@GetMapping("/Classshow")
 	public String ClHome(Model model) {
 		List<ClassHP> classHP = classSer.getClassHP();
 		model.addAttribute("classHP", classHP);
 		return "Classshow";
 	}
-
 
 	@GetMapping("/Studentshow/edit/{ID}")
 	public String editST(@PathVariable("ID") long ID, Model m) {
@@ -251,7 +260,7 @@ public class AdminCon {
 
 	@GetMapping("/Teachershow/edit/{ID}")
 	public String editT(@PathVariable("ID") long ID, Model m) {
-		Teacher teacher = teacherSer.getStdByID(ID);
+		Teacher teacher = teacherSer.getTeacherByID(ID);
 		m.addAttribute("teacher", teacher);
 		return "TeacherEdit";
 	}
@@ -341,7 +350,7 @@ public class AdminCon {
 
 	@GetMapping("/Teachershow/delete/{ID}")
 	public String deleteTeacher(@PathVariable("ID") Long ID, HttpSession session) {
-		Teacher teacher = teacherSer.getStdByID(ID);
+		Teacher teacher = teacherSer.getTeacherByID(ID);
 		AppUser appUser = teacher.getAppUser();
 		Long idUser = appUser.getUserId();
 		UserRole ul = userRoleSer.findAppRole(appUser);

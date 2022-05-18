@@ -3,6 +3,7 @@ import qldt.AppUser;
 import qldt.Student;
 import qldt.data.AppUserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,16 @@ public class AppUserSer {
     	return appUserRepo.findByUserName(username);
     	
     	}
+    public boolean checkExistedUserName( String username) {
+    	List<AppUser> appUsers= appUserRepo.findAll();
+    	boolean check_existed = false;
+    	for(AppUser appUser: appUsers) {
+    		if(appUser.getUserName().equalsIgnoreCase(username)) {
+    			check_existed=true;
+    			break;
+    		}
+    	}
+    	return check_existed;
+    }
 
 }
