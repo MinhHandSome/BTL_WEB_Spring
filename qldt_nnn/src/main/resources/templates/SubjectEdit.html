@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" type="text/javascript" th:href="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .backg {
+      background-image: url('../static/backg.png');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+    .formde{
+      margin: 2rem 30rem 2rem;
+    }
+    h2{
+      text-align: center;
+      padding: 2rem;
+    }
+  </style>
+</head>
+
+<body class="backg">
+<nav class="navbar font-weight-bold navbar-expand-lg navbar-light bg-light container">
+  <a class="navbar-brand container font-weight-bold" href="#" >Edit Students in School</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+    <a class="h4 mr-3 btn btn-secondary btn-sm" th:href="@{'/Subjectshow'}">BACK</a>
+
+  </div>
+</nav>
+
+<div class="formde">
+
+  <form th:action="@{UpdateSubject}" method="post" >
+
+    <input type="hidden" th:field="*{subject.ID}">
+
+    <div class="form-group">
+      <label> Subject: </label>
+      <input type="text" class="form-control" th:field="*{subject.name_subject}">
+    </div>
+
+    <div class="form-group">
+      <label >Time duration</label>
+      <input type="text" class="form-control" th:field="*{subject.duration_month}">
+    </div>
+
+  
+<br><br>
+
+    <button type="submit" class="btn btn-primary">Edit Subject </button>
+
+   
+  </form>
+</div>
+</body>
+</html>
