@@ -97,7 +97,6 @@
 					<th scope="col">ID</th>
 					<th scope="col">FullName</th>
 					<th scope="col">DOB</th>
-
 					<th scope="col">Address</th>
 					<th scope="col">Phone number</th>
 					<th scope="col">Email</th>
@@ -113,7 +112,6 @@
 					<td th:text="${model.ID}"></td>
 					<td th:text="${model.fullName}"></td>
 					<td th:text="${model.DOB}"></td>
-
 					<td th:text="${model.Address}"></td>
 					<td th:text="${model.phoneNumber}"></td>
 					<td th:text="${model.email}"></td>
@@ -121,8 +119,7 @@
 					<td>
 						<a class="btn btn-sm btn-primary" th:href="@{'/Teachershow/edit/' + ${model.ID}}">Edit</a>
 						<a class="btn btn-sm btn-danger" th:href="@{'/Teachershow/delete/' + ${model.ID}}">Delete</a>
-						<a class="btn btn-sm btn-danger"
-							th:href="@{'/Teachershow/edit_account/' + ${model.ID}}">EditAccount</a>
+						<a class="btn btn-sm btn-danger"th:href="@{'/Teachershow/edit_account/' + ${model.ID}}">EditAccount</a>
 					</td>
 				</tr>
 			</tbody>
