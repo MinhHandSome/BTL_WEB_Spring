@@ -112,8 +112,7 @@ public class AdminCon {
 
 		if (subjectSer.checkExistNameSubject(subject.getName_subject())) {
 			session.setAttribute("msg", "Subject Added Failed...");
-		} 
-		else {
+		} else {
 
 			subjectSer.addSubject(subject);
 			session.setAttribute("msg", "Subject Added Sucessfully...");
@@ -275,6 +274,17 @@ public class AdminCon {
 		return "SubjectEdit";
 	}
 
+	@GetMapping("/Classshow/edit/{ID}")
+	public String editCl(@PathVariable("ID") long ID, Model model) {
+		ClassHP classHP = classSer.getCldByID(ID);
+		List<Subject> subjects = subjectSer.getSubject();
+		List<Teacher> teachers = teacherSer.getTeacher();
+		model.addAttribute("subjects", subjects);
+		model.addAttribute("teachers", teachers);
+		model.addAttribute("classHP", classHP);
+		return "ClassEdit";
+	}
+
 	@GetMapping("/Studentshow/edit_account/{ID}")
 	public String editAccountStudent(@PathVariable("ID") long ID, Model m) {
 
@@ -322,15 +332,43 @@ public class AdminCon {
 		if (check_update == true) {
 			subjectSer.addSubject(subject);
 //		model.addAttribute("subject", new Subject());
-			session.setAttribute("msg", "Subject Edited Sucessfully...");
+			session.setAttribute("msg", "Subject ID:"+subject.getID()+" updated Sucessfully...");
 			return "redirect:/Subjectshow";
 		}
 		model.addAttribute("subject", new Subject());
-		session.setAttribute("msg", "Subject Failed Sucessfully...");
-		return "SubjectEdit";
+		session.setAttribute("msg", "Subject ID:"+ subject.getID() +" update failed");
+		Long idSubject_string= subject.getID();
+
+		return "redirect:/Subjectshow}";
 
 	}
+	@PostMapping("/Classshow/edit/UpdateClass")
+	public String UpdateClass(@ModelAttribute ClassHP classHP, Model model, HttpSession session) {
+	
+		Subject subject = subjectSer.getSjByName(classHP.getSubject().getName_subject());
+		Teacher teacher = teacherSer.getTByName(classHP.getTeacher().getFullName());
 
+		classHP.setTeacher(teacher);
+		classHP.setSubject(subject);
+
+		if (classSer.checkExistedRoomTime(classHP.getRoom(), classHP.getTime())) {
+			session.setAttribute("msg", "...");
+		} else {
+
+			classSer.addClass(classHP);
+			session.setAttribute("msg", "Class Added Sucessfully...");
+			return "redirect:/Classshow";
+		}
+
+		List<Subject> subjects = subjectSer.getSubject();
+		List<Teacher> teachers = teacherSer.getTeacher();
+		model.addAttribute("subjects", subjects);
+		model.addAttribute("teachers", teachers);
+		model.addAttribute("classHP", new ClassHP());
+
+		return "ClassEdit";
+		//return "redirect:/Classshow";
+	}
 	@PostMapping("/Teachershow/edit/UpdateTeacher")
 	public String UpdateTeacher(@ModelAttribute Teacher teacher, Model model, HttpSession session) {
 
@@ -389,8 +427,8 @@ public class AdminCon {
 	public String deleteSubject(@PathVariable("ID") Long ID, HttpSession session) {
 		Subject subject = subjectSer.getSjdByID(ID);
 		ClassHP classHP = classSer.findClassbySubject(subject);
-		if(classHP!=null) {
-		classSer.deleteClasById(classHP.getID());
+		if (classHP != null) {
+			classSer.deleteClasById(classHP.getID());
 		}
 		subjectSer.deleteBySubjectId(ID);
 		session.setAttribute("msg", "The Subject ID " + ID + " Deleted Succesfully");
@@ -400,6 +438,10 @@ public class AdminCon {
 	@GetMapping("/Teachershow/delete/{ID}")
 	public String deleteTeacher(@PathVariable("ID") Long ID, HttpSession session) {
 		Teacher teacher = teacherSer.getTeacherByID(ID);
+		ClassHP classHP = classSer.findClassByTeacher(teacher);
+		if (classHP != null) {
+			classSer.deleteClasById(classHP.getID());
+		}
 		AppUser appUser = teacher.getAppUser();
 		Long idUser = appUser.getUserId();
 		UserRole ul = userRoleSer.findAppRole(appUser);
@@ -411,4 +453,11 @@ public class AdminCon {
 		return "redirect:/Teachershow";
 	}
 
+	@GetMapping("/Classshow/delete/{ID}")
+	public String deleteClass(@PathVariable("ID") Long ID, HttpSession session) {
+
+		classSer.deleteClasById(ID);
+		session.setAttribute("msg", "The Subject ID " + ID + " Deleted Succesfully");
+		return "redirect:/Classshow";
+	}
 }
