@@ -50,7 +50,7 @@
 			font-size: 25px;
 		}
 
-		.form-style-1 input[type=text] {
+		.form-style-1 input[type=text] ,input[type=password]{
 			width: 85%;
 
 			box-sizing: border-box;
@@ -82,11 +82,24 @@
 		}
 
 		.form-style-1 .field-select {
-			width: 100%;
+			width: 85%;
+			font-size: 15px;
+			padding: 5px;
 		}
 
 		.form-style-1 .field-textarea {
 			height: 100px;
+		}
+        .checkbox {
+			display: block;
+		}
+		#checkbox {
+			display: inline-block;
+			margin-right: 10px;
+		}
+.checkbox-text {
+			color: rgb(0, 255, 64);
+			font-size: 13 pt;
 		}
 
 		button,.form-style-1 input[type=submit],
