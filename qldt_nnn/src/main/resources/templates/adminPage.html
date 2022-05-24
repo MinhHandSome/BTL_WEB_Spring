@@ -2,77 +2,50 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<meta charset="utf-8">
 	<title th:utext="${title}"></title>
-	<style>
-		body {
-			height: 100vh;
-			font-family: sans-serif;
-		}
-
-		.btnMenu:link,
-		.btnMenu:visited {
-			background-color: #85aded;
-			color: white;
-			padding: 14px 25px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-		}
-
-		.btnMenu:hover,
-		.btnMenu:active {
-			background-color: #a1bff0;
-		}
-
-		* {
-			margin: 0;
-		}
-
-		.container-fluid {
-			padding-right: 0 !important;
-			padding-left: 0 !important;
-		}
-
-		.bg-img {
-			background: url("");
-			background-position: center;
-			background-repeat: no-repeat;
-			background-size: cover;
-		}
-
-		
-
-		
-	</style>
+	<link rel="stylesheet" th:href="@{/adminPage.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
-<body class="bg-img">
-	<!-- Include _menu.html -->
-	<th:block th:include="/_menu"></th:block>
+<body>
 
-	<h2>Admin Page</h2>
-	<h3>Welcome :
-		<span th:utext="${#request.userPrincipal.name}"></span>
-	</h3>
-	<b>This is protected page!</b>
 
-	<br /><br />
+	<div class="wrapper">
+		<input type="checkbox" id="btn" hidden>
+		<label for="btn" class="menu-btn">
+			<i class="fas fa-bars"></i>
+			<i class="fas fa-times"></i>
+		</label>
+		<nav id="sidebar">
+			<div class="title">Side Menu</div>
+			<ul class="list-items">
+				<li><a href="/Student"><i class="fas fa-pencil-alt"></i> Add Student</a></li>
+				<li><a href="/Teacher"><i class="fas fa-pencil-alt"></i>Add Teacher</a></li>
+				<li><a href="/Subject"><i class="fas fa-pencil-alt"></i>Add Subject</a></li>
+				<li><a href="/Class"><i class="fas fa-pencil-alt"></i>Add Class</a></li>
 
-	<div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
-	<div class="container">
-		<div class="add">
-			<a href="/Student" class="btn btn-primary">Add Students</a>
-			<a href="/Teacher" class="btn btn-primary">Add Teachers</a>
-			<a href="/Subject" class="btn btn-primary">Add Subjects</a>
-			<a href="/Class" class="btn btn-primary">Add Class</a>
-		</div>
-		<div class="show">
-			<a href="/Subjectshow" class="btn btn-primary">Show Subjects</a>
-			<a href="/Studentshow" class="btn btn-primary">Show Students</a>
-			<a href="/Teachershow" class="btn btn-primary">Show Teachers</a>
-			<a href="/Classshow" class="btn btn-primary">Show Classes</a>
-		</div>
+				<li><a href="/Studentshow"><i class="fas fa-bookmark"></i>Show Students</a></li>
+				<li><a href="/Teachershow"><i class="fas fa-bookmark"></i>Show Teachers</a></li>
+				<li><a href="/Subjectshow"><i class="fas fa-bookmark"></i>Show Subjects</a></li>
+				<li><a href="/Classshow"><i class="fas fa-bookmark"></i>Show Classes</a></li>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<li> <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}"><i
+							class="fas fa-sign-out-alt"></i> Logout</a>
+				</li>
+
+
+			</ul>
+		</nav>
+	</div>
+	<div class=" content">
+		<h1> Hello Admin</h1>
+		<h1> This is admin home</h1>
 	</div>
 </body>
 
