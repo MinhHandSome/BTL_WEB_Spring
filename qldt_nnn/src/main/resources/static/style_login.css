@@ -29,17 +29,14 @@ body {
 			border-radius: 10px;
 			overflow: hidden;
 			padding: 55px 55px 37px;
-			background: rgb(128, 255, 255);
-			background: -webkit-linear-gradient(top, rgb(0, 0, 64), rgb(0, 0, 0));
-			background: -o-linear-gradient(top, rgb(0, 0, 64), #b224ef);
-			background: -moz-linear-gradient(top, rgb(255, 255, 255), #b224ef);
-			background: linear-gradient(top, rgb(0, 0, 0), #b224ef);
+			background-color:  blanchedalmond;
+		border-style: solid;
 			text-align: center;
 		}
 
 		.form-tt h2 {
 			font-size: 30px;
-			color: #fff;
+			color: rgb(0, 0, 0);
 			line-height: 1.2;
 			text-align: center;
 			text-transform: uppercase;
@@ -51,14 +48,14 @@ body {
 		.form-tt input[type=password] {
 			font-family: Poppins-Regular;
 			font-size: 18px;
-			color: rgb(255, 255, 255);
+			color: rgb(0, 0, 0);
 			line-height: 1.2;
 			display: block;
 			width: calc(100% - 10px);
 			height: 45px;
 			background: 0 0;
 			padding: 10px 0;
-			border-bottom: 2px solid rgb(255, 255, 255) !important;
+			border-bottom: 2px solid rgb(0, 0, 0) !important;
 			border: 0;
 			outline: 0;
 		}
@@ -73,7 +70,7 @@ body {
 		}
 
 		.form-tt input::placeholder {
-			color: #fff;
+			color: rgb(0, 0, 0);
 		}
 
 		.checkbox {
@@ -83,13 +80,13 @@ body {
 		.form-tt input[type=submit] {
 			font-family: Arial, Helvetica, sans-serif;
 			font-size: 20px;
-			color: #555;
+			color: rgb(255, 255, 255);
 			line-height: 1.2;
 			padding: 0 20px;
 			min-width: 120px;
 			height: 50px;
 			border-radius: 25px;
-			background: #fff;
+			background: rgb(0, 0, 0);
 			position: relative;
 			z-index: 1;
 			border: 0;
@@ -104,7 +101,7 @@ body {
 		}
 
 		.checkbox-text {
-			color: rgb(255, 255, 255);
+			color: rgb(0, 0, 0);
 			font-size: 13 pt;
 		}
 

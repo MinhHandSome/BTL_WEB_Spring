@@ -1,91 +1,70 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <link rel="stylesheet" type="text/javascript" th:href="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"/>
-  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <style>
-    .backg {
-      background-image: url('../static/backg.png');
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-size: cover;
-    }
-    .formde{
-      margin: 2rem 30rem 2rem;
-    }
-    h2{
-      text-align: center;
-      padding: 2rem;
-    }
-  </style>
+	<link rel="stylesheet" type="text/javascript" th:href="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" th:href="@{/add.css}">
 </head>
 
-<body class="backg">
-<nav class="navbar font-weight-bold navbar-expand-lg navbar-light bg-light container">
-  <a class="navbar-brand container font-weight-bold" href="#" >Edit Students in School</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<body class="bg-img">
+	<button onclick="window.location.href='/admin'">Back</button>
 
 
-    <a class="h4 mr-3 btn btn-secondary btn-sm" th:href="@{'/admin'}">BACK</a>
 
-  </div>
-</nav>
+	<div th:if="${session.msg}">
 
-<div class="formde">
+		<div class="alert alert-primary" role="alert" th:text="${session.msg}">
+		</div>
+		<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+	</div>
 
-  <form th:action="@{UpdateTeacher}" method="post" >
 
-    <input type="hidden" th:field="*{teacher.ID}">
 
-    <div class="form-group">
-      <label >FullName</label>
-      <input type="text" class="form-control" th:field="*{teacher.fullName}">
-    </div>
+	<form th:action="@{UpdateTeacher}" method="post">
+		<ul class="form-style-1">
+			<h2> Teacher Information </h2>
+			<input type="hidden" th:field="*{teacher.ID}">
 
-    <div class="form-group">
-      <label >DOB</label>
-      <input type="text" class="form-control" th:field="*{teacher.DOB}">
-    </div>
+			<li>
+				<label>FullName</label>
+				<input type="text" class="form-control" th:field="*{teacher.fullName}">
+			</li>
+			<li>
+				<label>DOB</label>
+				<input type="text" class="form-control" th:field="*{teacher.DOB}">
+			</li>
+			<li>
+				<label>Address</label>
+				<input type="text" class="form-control" th:field="*{teacher.Address}">
+			</li>
+			<li>
+				<label>Phone number</label>
+				<input type="text" class="form-control" th:field="*{teacher.phoneNumber}">
+			</li>
+			<li>
+				<label>email</label>
+				<input type="text" class="form-control" th:field="*{teacher.email}">
+			</li>
 
-    <div class="form-group">
-      <label >Address</label>
-      <input type="text" class="form-control" th:field="*{teacher.Address}">
-    </div>
+			<input type="hidden" th:field="*{teacher.appUser.userId}">
 
-    <div class="form-group">
-      <label >Phone number</label>
-      <input type="text" class="form-control" th:field="*{teacher.phoneNumber}">
-    </div>
+			<input type="hidden" class="form-control" th:field="*{teacher.appUser.userName}">
 
-    <div class="form-group">
-      <label >email</label>
-      <input type="text" class="form-control" th:field="*{teacher.email}">
-    </div>
+			<input type="hidden" class="form-control" th:field="*{teacher.appUser.encrytedPassword}">
 
-    <input type="hidden" th:field="*{teacher.appUser.userId}">
+			<li>
 
-    <div class="form-group">
-      <label >Username</label>
-      <input type="hidden" class="form-control" th:field="*{teacher.appUser.userName}">
-    </div>
+				<input type="submit" value="Update Teacher" />
+			</li>
 
-    <div class="form-group">
-      <label >Password</label>
-      <input type="hidden" class="form-control" th:field="*{teacher.appUser.encrytedPassword}">
-    </div>
+		</ul>
 
-<br><br>
 
-    <button type="submit" class="btn btn-primary">Edit Teacher </button>
+	</form>
 
- 
-  </form>
-</div>
 </body>
+
 </html>

@@ -73,20 +73,13 @@
 </head>
 
 <body class="bg-img">
-	<nav class="navbar font-weight-bold navbar-expand-lg navbar-light bg-light container">
-		<a class="navbar-brand container font-weight-bold" href="#">Student List of School</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+	<button onclick="window.location.href='/admin'">Back</button>
+	<div th:if="${session.msg}">
 
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-
-			<a class="h4 mr-3 btn btn-secondary btn-sm" th:href="@{'/admin'}">BACK</a>
-
+		<div class="alert alert-primary" role="alert" th:text="${session.msg}">
 		</div>
-	</nav>
+		<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+	</div>
 	<br><br><br>
 	<div class="container centerss">
 

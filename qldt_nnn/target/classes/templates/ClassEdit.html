@@ -8,57 +8,12 @@
 	<link rel="stylesheet" type="text/javascript" th:href="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 	<title>Document</title>
-
-	<style>
-		body {
-			height: 100vh;
-		}
-
-		* {
-			margin: 0;
-		}
-
-		.bg-img {
-
-			background: url("https://firebasestorage.googleapis.com/v0/b/fir-flutter-99d26.appspot.com/o/backg.png?alt=media&token=bc9d8268-5dd5-4513-9374-70d971c7c65f");
-			background-position: center;
-			background-repeat: no-repeat;
-			background-size: cover;
-		}
-
-		.centerss {
-			border: 5px solid #8ca7f1;
-			border-radius: 20px;
-			padding: 10px;
-		}
-
-		.formde {
-			margin: 2rem 30rem 2rem;
-		}
-
-		h2 {
-			text-align: center;
-			padding: 2rem;
-		}
-	</style>
+	<link rel="stylesheet" th:href="@{/add.css}">
 
 </head>
 
 <body class="bg-img">
-	<nav class="navbar font-weight-bold navbar-expand-lg navbar-light bg-light container">
-		<a class="navbar-brand container font-weight-bold" href="#">Add Students For School</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-
-			<a class="h4 mr-3 btn btn-secondary btn-sm" th:href="@{'/'}">BACK</a>
-
-		</div>
-	</nav>
+	<button onclick="window.location.href='/Classshow'">Back</button>
 
 
 
@@ -69,46 +24,46 @@
 		<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
 	</div>
 
-	<div class="formde">
 
-		<form method="POST" th:action="@{UpdateClass}" th:object = "${classHP}">
+	<form method="POST" th:action="@{UpdateClass}" th:object="${classHP}">
+		<ul class="form-style-1">
+			<h2> Class Information </h2>
 			<input type="hidden" th:field="*{ID}">
-				<div class="form-group">
-					<label>Teacher</label>
-					<select  th:field=" *{teacher.fullName}">
+			<li>
+				<label>Teacher</label>
+				<select class="field-select" th:field=" *{teacher.fullName}">
 
-						<option th:each="teacher1: ${teachers}" th:value="${teacher1.fullName}"><span th:text="${teacher1.fullName}">
-								Teacher1</span><br />
-						</option>
+					<option th:each="teacher1: ${teachers}" th:value="${teacher1.fullName}"><span
+							th:text="${teacher1.fullName}">
+							Teacher1</span><br />
+					</option>
+				</select>
+			</li>
+			<li>
 
 
-					</select>
 
-				</div>
-		
 
-			<div>
-				<div class="form-group">
-					<label>Time</label>
-					<select name="time" id="time" th:field="*{Time}">
-						<option value="Thứ Hai">Thứ Hai</option>
-						<option value="Thứ Ba">Thứ Ba</option>
-						<option value="Thứ Tư">Thứ Tư</option>
-						<option value="Thứ Năm">Thứ Năm</option>
-						<option value="Thứ Sáu">Thứ Sáu</option>
-						<option value="Thứ Bảy">Thứ Bảy</option>
-						<option value="Chủ Nhật">Chủ Nhật</option>
+				<label>Time</label>
+				<select class="field-select " name="time" id="time" th:field="*{Time}">
+					<option value="Thứ Hai">Thứ Hai</option>
+					<option value="Thứ Ba">Thứ Ba</option>
+					<option value="Thứ Tư">Thứ Tư</option>
+					<option value="Thứ Năm">Thứ Năm</option>
+					<option value="Thứ Sáu">Thứ Sáu</option>
+					<option value="Thứ Bảy">Thứ Bảy</option>
+					<option value="Chủ Nhật">Chủ Nhật</option>
 
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
+				</select >
+			</li>
+			<li>
 				<label>Room</label>
 				<input type="text" class="form-control" th:field="*{room}" required>
-			</div>
-			<div class="form-group">
+
+			</li>
+			<li>
 				<label>Subject</label>
-				<select  th:field="*{subject.name_subject}">
+				<select class="field-select" th:field="*{subject.name_subject}">
 
 					<option th:each="subject1 : ${subjects}" th:value="${subject1.name_subject} "><span
 							th:text="${subject1.name_subject}">
@@ -116,13 +71,16 @@
 					</option>
 				</select>
 
-			</div>
+			</li>
 
-			<button type="submit" class="btn btn-primary">Edit Class </button>
+			<li>
 
+				<input type="submit" value="Update Class" />
+			</li>
 
-		</form>
-	</div>
+		</ul>
+	</form>
+
 </body>
 
 </html>
