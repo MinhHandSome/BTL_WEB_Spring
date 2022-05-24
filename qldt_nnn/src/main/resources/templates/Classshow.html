@@ -11,64 +11,7 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 
 	<title></title>
-	<style>
-		body {
-			font-family: sans-serif;
-		}
-
-		.btnMenu:link,
-		.btnMenu:visited {
-			background-color: #4e57a6;
-			color: white;
-			padding: 14px 25px;
-			border-radius: 5px;
-			margin: 0px 10px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-		}
-
-		.btnMenu:hover,
-		.btnMenu:active {
-			background-color: #a1bff0;
-		}
-
-		th,
-		td {
-			border: 1px solid #352f91;
-			padding: 8px;
-		}
-
-		table {
-			border-collapse: collapse;
-			border: 1px solid #352f91;
-			text-align: center;
-			vertical-align: middle;
-		}
-
-		thead th {
-			width: 9%;
-		}
-
-		thead {
-			background-color: #352f91;
-			color: white;
-			font-size: 0.875rem;
-			text-transform: uppercase;
-			letter-spacing: 2%;
-		}
-
-
-		tbody tr:nth-child(odd) {
-			background-color: #fff;
-		}
-
-		tbody tr:nth-child(even) {
-			background-color: #eee;
-		}
-	</style>
-
-
+	<link rel="stylesheet" th:href="@{/table.css}">
 
 </head>
 
@@ -85,8 +28,10 @@
 					<th scope="col">TEACHER</th>
 					<th scope="col">ROOM</th>
 					<th scope="col">TIME</th>
-					
-				
+					<th scope="col">---</th>
+
+
+
 
 				</tr>
 			</thead>
@@ -99,11 +44,11 @@
 					<td th:text="${model.teacher.fullName}"></td>
 					<td th:text="${model.room}"></td>
 					<td th:text="${model.time}"></td>
-					
+
 					<td>
-						<a class="btn btn-sm btn-primary" th:href="@{'/Classshow/edit/' + ${model.ID}}">Edit</a>
-						<a class="btn btn-sm btn-danger" th:href="@{'/Classshow/delete/' + ${model.ID}}">Delete</a>
-						
+						<a class="btnChange-edit" th:href="@{'/Classshow/edit/' + ${model.ID}}">Edit</a>
+						<a class="btnChange-delete" th:href="@{'/Classshow/delete/' + ${model.ID}}">Delete</a>
+
 					</td>
 				</tr>
 			</tbody>
