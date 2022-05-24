@@ -100,7 +100,7 @@
 			height: 100px;
 		}
 
-		.form-style-1 input[type=submit],
+		button,.form-style-1 input[type=submit],
 		.form-style-1 input[type=button] {
 			background: rgb(0, 0, 128);
 			padding: 8px 20px 8px 20px;
@@ -131,15 +131,9 @@
 
 <body class="bg-img">
 
-	<th:block th:include="/_menu"></th:block>
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
 
-		<a class="h4 mr-3 btn btn-secondary btn-sm" th:href="@{'/'}">BACK</a>
-
-	</div>
-
-
+	<button onclick="window.location.href='/admin'">Back</button>
 
 
 	<div th:if="${session.msg}">

@@ -101,7 +101,7 @@
 			height: 100px;
 		}
 
-		.form-style-1 input[type=submit],
+		button,.form-style-1 input[type=submit],
 		.form-style-1 input[type=button] {
 			background: rgb(0, 0, 128);
 			padding: 8px 20px 8px 20px;
@@ -130,20 +130,7 @@
 </head>
 
 <body class="bg-img">
-	<nav class="navbar font-weight-bold navbar-expand-lg navbar-light bg-light container">
-		<a class="navbar-brand container font-weight-bold" href="#">Add Students For School</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-
-			<a class="h4 mr-3 btn btn-secondary btn-sm" th:href="@{'/admin'}">BACK</a>
-
-		</div>
-	</nav>
+	<button onclick="window.location.href='/admin'">Back</button>
 
 
 
