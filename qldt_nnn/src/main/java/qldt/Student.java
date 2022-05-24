@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
-
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -27,13 +27,19 @@ public class Student  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
     private Long ID;
-
+   
     private String fullName;
+  
     private String DOB;
+ 
     private String Grade;
+  
     private String MSV;
+   
     private String Address;
+   
     private String phoneNumber;
+ 
     private String email;
     
     @OneToOne

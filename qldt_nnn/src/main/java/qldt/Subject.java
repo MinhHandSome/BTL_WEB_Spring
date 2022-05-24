@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,9 @@ public class Subject {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long ID;
 	@Column(name = "name_subject", length = 36, nullable = false)
+	
 	private String name_subject;
+
 	private int duration_month;
 
 }
