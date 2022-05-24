@@ -8,57 +8,137 @@
 	<link rel="stylesheet" type="text/javascript" th:href="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 	<title>Document</title>
-
 	<style>
-		body {
-			height: 100vh;
-		}
-
-		* {
-			margin: 0;
+		.btnMenu:link,
+		.btnMenu:visited {
+			background-color: #4e57a6;
+			color: white;
+			padding: 14px 25px;
+			border-radius: 5px;
+			margin: 0px 10px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
 		}
 
 		.bg-img {
-
-			background: url("https://firebasestorage.googleapis.com/v0/b/fir-flutter-99d26.appspot.com/o/backg.png?alt=media&token=bc9d8268-5dd5-4513-9374-70d971c7c65f");
-			background-position: center;
-			background-repeat: no-repeat;
-			background-size: cover;
+			background-image: url('');
+			background-color: aquamarine;
 		}
 
-		.centerss {
-			border: 5px solid #8ca7f1;
+		.form-style-1 {
+			border-style: solid;
+			background-color: rgb(255, 255, 255);
 			border-radius: 20px;
-			padding: 10px;
+			margin: 10px auto;
+			max-width: 400px;
+			padding: 0px 12px 10px 20px;
+			font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 		}
 
-		.formde {
-			margin: 2rem 30rem 2rem;
+		.form-style-1 li {
+
+			padding: 0;
+			display: block;
+			list-style: none;
+			margin: 10px 0 0 40px;
 		}
 
-		h2 {
+		.form-style-1 label {
+			margin: 0 0 3px 13px;
+			padding: 0px;
+			display: block;
+			font-weight: bold;
+			font-size: 15px;
+		}
+
+		.form-style-1 h2 {
+			background-color: rgb(255, 255, 128);
 			text-align: center;
-			padding: 2rem;
+			width: 100%;
+			padding: 20px 0 20px 0;
+			border-radius: 15px;
+			font-size: 25px;
+		}
+
+		.form-style-1 input[type=text] {
+			width: 85%;
+
+			box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			border: 2px solid #BEBEBE;
+			padding: 7px;
+			margin: 0px;
+			-webkit-transition: all 0.30s ease-in-out;
+			-moz-transition: all 0.30s ease-in-out;
+			-ms-transition: all 0.30s ease-in-out;
+			-o-transition: all 0.30s ease-in-out;
+			outline: none;
+		}
+
+		.form-style-1 input[type=text]:focus {
+			-moz-box-shadow: 0 0 8px #88D5E9;
+			-webkit-box-shadow: 0 0 8px #88D5E9;
+			box-shadow: 0 0 8px #88D5E9;
+			border: 1px solid #88D5E9;
+		}
+
+		.form-style-1 .field-divided {
+			width: 49%;
+		}
+
+		.form-style-1 .field-long {
+			width: 100%;
+		}
+
+		.form-style-1 .field-select {
+			width: 100%;
+		}
+
+		.form-style-1 .field-textarea {
+			height: 100px;
+		}
+
+		.form-style-1 input[type=submit],
+		.form-style-1 input[type=button] {
+			background: rgb(0, 0, 128);
+			padding: 8px 20px 8px 20px;
+			margin: 0px 100px 10px 100px;
+			border: none;
+			color: #fff;
+			font-size: 15px;
+
+			border-radius: 15px;
+		}
+
+		.form-style-1 input[type=submit]:hover,
+		.form-style-1 input[type=button]:hover {
+
+			background: #4691A4;
+			box-shadow: none;
+			-moz-box-shadow: none;
+			-webkit-box-shadow: none;
+		}
+
+		.form-style-1 .required {
+			color: red;
 		}
 	</style>
+
 
 </head>
 
 <body class="bg-img">
-	<nav class="navbar font-weight-bold navbar-expand-lg navbar-light bg-light container">
-		<a class="navbar-brand container font-weight-bold" href="#">Add Students For School</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
 
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+	<th:block th:include="/_menu"></th:block>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
 
-			<a class="h4 mr-3 btn btn-secondary btn-sm" th:href="@{'/'}">BACK</a>
+		<a class="h4 mr-3 btn btn-secondary btn-sm" th:href="@{'/'}">BACK</a>
 
-		</div>
-	</nav>
+	</div>
+
 
 
 
@@ -69,63 +149,61 @@
 		<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
 	</div>
 
-	<div class="formde">
 
-		<form method="POST" th:action="@{/addStudent}">
 
-			<div class="form-group">
+	<form method="POST" th:action="@{/addStudent}">
+		<ul class="form-style-1">
+			<h2>Student Information</h2>
+			<li>
 				<label>Fullname</label>
-				<input type="text" class="form-control" th:field="${newStudent.fullName}" required minlength="2">
-			</div>
+				<input type="text" class="form-control" th:field="${newStudent.fullName}">
 
-			<div class="form-group">
+			</li>
+
+			<li>
 				<label>DOB</label>
 				<input type="text" class="form-control" th:field="${newStudent.DOB}" required>
-			</div>
-
-			<div class="form-group">
+			</li>
+			<li>
 				<label>Grade</label>
 				<input type="text" class="form-control" th:field="${newStudent.Grade}" required>
-			</div>
+			</li>
 
-			<div class="form-group">
+			<li>
 				<label>MSV</label>
 				<input type="text" class="form-control" th:field="${newStudent.MSV}" required>
-			</div>
+			</li>
+			<li>
 
-			<div class="form-group">
 				<label>Address</label>
 				<input type="text" class="form-control" th:field="${newStudent.Address}" required minlength="5">
-			</div>
+			</li>
+			<li>
 
-			<div class="form-group">
 				<label>Phone number</label>
 				<input type="text" class="form-control" th:field="${newStudent.phoneNumber}" required minlength="10">
-			</div>
-			<div class="form-group">
+			</li>
+			<li>
 				<label>Email</label>
 				<input type="text" class="form-control" th:field="${newStudent.email}" required minlength="10">
-			</div>
-			
-			<div class="form-group">
+			</li>
+			<li>
 				<label>Username</label>
 				<input type="text" class="form-control" th:field="${newAppUser.userName}" required>
-			</div>
-			<div class="form-group">
+			</li>
+			<li>
 				<label>Password</label>
 				<input type="text" class="form-control" th:field="${newAppUser.encrytedPassword}" required>
-			</div>
-			
+			</li>
 
 
+			<br>
+			<li>
+				<input type="submit" value="Add Student" />
+			</li>
 
-
-
-
-			<button type="submit" class="btn btn-primary">Add Student </button>
-
-			<a href="Teachers" class="btn btn-primary">Reset</a>
-		</form>
+		</ul>
+	</form>
 	</div>
 </body>
 

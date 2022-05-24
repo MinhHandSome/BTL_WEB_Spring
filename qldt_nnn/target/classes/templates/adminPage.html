@@ -41,17 +41,9 @@
 			background-size: cover;
 		}
 
-		.centerss {
-			position: absolute;
-			left: 50%;
-			top: 40%;
-			transform: translate(-50%, -50%);
-			border: 5px solid #8ca7f1;
-			border-radius: 20px;
-			padding: 10px;
+		
 
-
-		}
+		
 	</style>
 </head>
 
@@ -69,14 +61,16 @@
 
 	<div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
 	<div class="container">
-		<div class="centerss">
+		<div class="add">
 			<a href="/Student" class="btn btn-primary">Add Students</a>
 			<a href="/Teacher" class="btn btn-primary">Add Teachers</a>
 			<a href="/Subject" class="btn btn-primary">Add Subjects</a>
+			<a href="/Class" class="btn btn-primary">Add Class</a>
+		</div>
+		<div class="show">
 			<a href="/Subjectshow" class="btn btn-primary">Show Subjects</a>
 			<a href="/Studentshow" class="btn btn-primary">Show Students</a>
 			<a href="/Teachershow" class="btn btn-primary">Show Teachers</a>
-			<a href="/Class" class="btn btn-primary">Add Class</a>
 			<a href="/Classshow" class="btn btn-primary">Show Classes</a>
 		</div>
 	</div>

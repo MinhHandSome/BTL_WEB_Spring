@@ -23,12 +23,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import java.security.Principal;
 import java.util.List;
@@ -57,6 +59,7 @@ public class AdminCon {
 	@PostMapping("/addStudent")
 	public String addStudent(@ModelAttribute Student student, @ModelAttribute AppUser appUser,
 			@ModelAttribute UserRole userRole, Model model, HttpSession session) {
+
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(appUser.getEncrytedPassword());
 		appUser.setEnabled(true);
@@ -332,19 +335,20 @@ public class AdminCon {
 		if (check_update == true) {
 			subjectSer.addSubject(subject);
 //		model.addAttribute("subject", new Subject());
-			session.setAttribute("msg", "Subject ID:"+subject.getID()+" updated Sucessfully...");
+			session.setAttribute("msg", "Subject ID:" + subject.getID() + " updated Sucessfully...");
 			return "redirect:/Subjectshow";
 		}
 		model.addAttribute("subject", new Subject());
-		session.setAttribute("msg", "Subject ID:"+ subject.getID() +" update failed");
-		Long idSubject_string= subject.getID();
+		session.setAttribute("msg", "Subject ID:" + subject.getID() + " update failed");
+		Long idSubject_string = subject.getID();
 
 		return "redirect:/Subjectshow}";
 
 	}
+
 	@PostMapping("/Classshow/edit/UpdateClass")
 	public String UpdateClass(@ModelAttribute ClassHP classHP, Model model, HttpSession session) {
-	
+
 		Subject subject = subjectSer.getSjByName(classHP.getSubject().getName_subject());
 		Teacher teacher = teacherSer.getTByName(classHP.getTeacher().getFullName());
 
@@ -367,8 +371,9 @@ public class AdminCon {
 		model.addAttribute("classHP", new ClassHP());
 
 		return "ClassEdit";
-		//return "redirect:/Classshow";
+		// return "redirect:/Classshow";
 	}
+
 	@PostMapping("/Teachershow/edit/UpdateTeacher")
 	public String UpdateTeacher(@ModelAttribute Teacher teacher, Model model, HttpSession session) {
 
