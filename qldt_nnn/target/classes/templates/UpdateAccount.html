@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" type="text/javascript" th:href="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" th:href="@{/add.css}">
+</head>
+
+<body class="bg-img">
+	<button onclick="window.location.href='/admin'">Back</button>
+
+	<div th:if="${session.msg}">
+
+		<div class="alert alert-primary" role="alert" th:text="${session.msg}">
+		</div>
+		<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+	</div>
+
+
+	<form th:action="@{/UpdateAccount}" method="post">
+		<ul class="form-style-1">
+			<h2> Admin Account Information</h2>
+			<input type="hidden" th:field="*{appUser.userId}">
+
+			<li>
+				<label>Username</label>
+				<input type="text" class="form-control" th:field="*{appUser.userName}">
+			</li>
+			<li>
+				<label> Old Password</label>
+				<input type="text" class="form-control" th:field="${oldPassword.}">
+			</li>
+			<li>
+				<label> New Password</label>
+				<input type="password" class="form-control" th:field="*{appUser.encrytedPassword}">
+			</li>
+			<li>
+				<input type="submit" value="Update Account" />
+			</li>
+
+			<ul>
+	</form>
+
+</body>
+
+</html>

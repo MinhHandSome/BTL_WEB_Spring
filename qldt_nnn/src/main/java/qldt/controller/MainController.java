@@ -89,7 +89,7 @@ public class MainController {
 
 		if (principal != null) {
 			User loginedUser = (User) ((Authentication) principal).getPrincipal();
-
+		
 			String userInfo = WebUtils.toString(loginedUser);
 
 			model.addAttribute("userInfo", userInfo);
