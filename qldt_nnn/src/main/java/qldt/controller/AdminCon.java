@@ -2,6 +2,7 @@ package qldt.controller
 
 ;
 
+import qldt.AccountChange;
 import qldt.AppUser;
 import qldt.Student;
 import qldt.Teacher;
@@ -200,42 +201,38 @@ public class AdminCon {
 
 		String userName = principal.getName();
 		AppUser appUser = appUserSer.findAppUserbyUsername(userName);
-		
-		model.addAttribute("oldPassword", new String());
-		model.addAttribute("appUser", appUser);
+		AccountChange accountChange = new AccountChange();
+		accountChange.setUserName(appUser.getUserName());
+
+		model.addAttribute("accountChange", accountChange);
 		return "UpdateAccount";
 	}
 
 	@PostMapping("/UpdateAccount")
-	public String UpdateAccount(@ModelAttribute AppUser appUser, @ModelAttribute String oldPassword,
-			Principal principal, Model model, HttpSession session) {
+	public String UpdateAccount(@ModelAttribute AccountChange accountChange, Principal principal, Model model,
+			HttpSession session) {
 		String userName = principal.getName();
-		AppUser appUser1 = appUserSer.findAppUserbyUsername(userName);
-		String passwordCurrent = appUser1.getEncrytedPassword();
+		AppUser appUser = appUserSer.findAppUserbyUsername(userName);
+		String passwordCurrent = appUser.getEncrytedPassword();
 		System.out.println(passwordCurrent);
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		System.out.println(oldPassword);
-		System.out.println(BCrypt.checkpw("123", passwordCurrent));
+		System.out.println(BCrypt.checkpw(accountChange.getOldPassword(), passwordCurrent));
 		boolean checkExisted = false;
-		boolean check = false;
-		
-		if (BCrypt.checkpw("123", passwordCurrent) == true) {
+
+		if (BCrypt.checkpw(accountChange.getOldPassword(), passwordCurrent) == true) {
 			checkExisted = true;
 		}
-		System.out.println(checkExisted);
-//		if (checkExisted = true && appUser.getEncrytedPassword() != oldPassword) {
-//			check = true;
-//		}
+
 		if (checkExisted == false) {
 			session.setAttribute("msg", "Old Password is incorrect...");
-	
-		} 
-		else {
-			String encodedPassword = passwordEncoder.encode(appUser.getEncrytedPassword());
+		} else if (accountChange.getNewPassword().equals(accountChange.getConfirmPassword()) == false) {
+			session.setAttribute("msg", "New password is the same Confirm password");
+		} else {
+			String encodedPassword = passwordEncoder.encode(accountChange.getNewPassword());
 			appUser.setEnabled(true);
 			appUser.setEncrytedPassword(encodedPassword);
 			appUserSer.addAppUser(appUser);
-			session.setAttribute("msg", "Update Account kj ibyiu Sucessfully...");
+			session.setAttribute("msg", "Update Account Sucessfully...");
 
 		}
 
