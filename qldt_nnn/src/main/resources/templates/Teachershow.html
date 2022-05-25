@@ -11,65 +11,7 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 
 	<title></title>
-	<style>
-		body {
-			font-family: sans-serif;
-		}
-
-		.btnMenu:link,
-		.btnMenu:visited {
-			background-color: #4e57a6;
-			color: white;
-			padding: 14px 25px;
-			border-radius: 5px;
-			margin: 0px 10px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-		}
-
-		.btnMenu:hover,
-		.btnMenu:active {
-			background-color: #a1bff0;
-		}
-
-		th,
-		td {
-			border: 1px solid #352f91;
-			padding: 8px;
-		}
-
-		table {
-			border-collapse: collapse;
-			border: 1px solid #352f91;
-			text-align: center;
-			vertical-align: middle;
-		}
-
-		thead th {
-			width: 9%;
-		}
-
-		thead {
-			background-color: #352f91;
-			color: white;
-			font-size: 0.875rem;
-			text-transform: uppercase;
-			letter-spacing: 2%;
-		}
-
-
-		tbody tr:nth-child(odd) {
-			background-color: #fff;
-		}
-
-		tbody tr:nth-child(even) {
-			background-color: #eee;
-		}
-	</style>
-
-
-
+	<link rel="stylesheet" th:href="@{/table.css}">
 
 </head>
 
@@ -93,7 +35,8 @@
 					<th scope="col">Address</th>
 					<th scope="col">Phone number</th>
 					<th scope="col">Email</th>
-					<th scope="col">USERNAME</th>
+					<th scope="col">Username</th>
+					<th scope="col">---</th>
 
 
 				</tr>
@@ -110,9 +53,9 @@
 					<td th:text="${model.email}"></td>
 					<td th:text="${model.appUser.userName}"></td>
 					<td>
-						<a class="btn btn-sm btn-primary" th:href="@{'/Teachershow/edit/' + ${model.ID}}">Edit</a>
-						<a class="btn btn-sm btn-danger" th:href="@{'/Teachershow/delete/' + ${model.ID}}">Delete</a>
-						<a class="btn btn-sm btn-danger"
+						<a class="btnChange-edit" th:href="@{'/Teachershow/edit/' + ${model.ID}}">Edit</a>
+						<a class="btnChange-delete" th:href="@{'/Teachershow/delete/' + ${model.ID}}">Delete</a>
+						<a class="btnChange-edit"
 							th:href="@{'/Teachershow/edit_account/' + ${model.ID}}">EditAccount</a>
 					</td>
 				</tr>

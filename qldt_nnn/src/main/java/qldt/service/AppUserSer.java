@@ -15,6 +15,9 @@ public class AppUserSer {
     @Autowired
     private AppUserRepository appUserRepo;
 
+	public List<AppUser> getAppUser() {
+		return appUserRepo.findAll();
+	}
 
     public AppUser addAppUser(AppUser appUser){
         return appUserRepo.save(appUser);

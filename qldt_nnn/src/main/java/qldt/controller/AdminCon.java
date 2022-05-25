@@ -19,7 +19,12 @@ import qldt.service.SubjectSer;
 import qldt.service.TeacherSer;
 import qldt.service.UserRoleSer;
 import java.security.Principal;
+
+import org.aspectj.weaver.NewConstructorTypeMunger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -190,13 +195,52 @@ public class AdminCon {
 
 	}
 
-//    @GetMapping("/")
-//    public String Home(Model model){
-//
-//        return "adminPage";
-//
-//    }
-//
+	@GetMapping("/ChangePassword")
+	public String ChangePassword(Model model, Principal principal) {
+
+		String userName = principal.getName();
+		AppUser appUser = appUserSer.findAppUserbyUsername(userName);
+		
+		model.addAttribute("oldPassword", new String());
+		model.addAttribute("appUser", appUser);
+		return "UpdateAccount";
+	}
+
+	@PostMapping("/UpdateAccount")
+	public String UpdateAccount(@ModelAttribute AppUser appUser, @ModelAttribute String oldPassword,
+			Principal principal, Model model, HttpSession session) {
+		String userName = principal.getName();
+		AppUser appUser1 = appUserSer.findAppUserbyUsername(userName);
+		String passwordCurrent = appUser1.getEncrytedPassword();
+		System.out.println(passwordCurrent);
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		System.out.println(oldPassword);
+		System.out.println(BCrypt.checkpw("123", passwordCurrent));
+		boolean checkExisted = false;
+		boolean check = false;
+		
+		if (BCrypt.checkpw("123", passwordCurrent) == true) {
+			checkExisted = true;
+		}
+		System.out.println(checkExisted);
+//		if (checkExisted = true && appUser.getEncrytedPassword() != oldPassword) {
+//			check = true;
+//		}
+		if (checkExisted == false) {
+			session.setAttribute("msg", "Old Password is incorrect...");
+	
+		} 
+		else {
+			String encodedPassword = passwordEncoder.encode(appUser.getEncrytedPassword());
+			appUser.setEnabled(true);
+			appUser.setEncrytedPassword(encodedPassword);
+			appUserSer.addAppUser(appUser);
+			session.setAttribute("msg", "Update Account kj ibyiu Sucessfully...");
+
+		}
+
+		return "redirect:/ChangePassword";
+	}
 
 	@GetMapping("/student_home/Info")
 	public String Student_Info(Model model, Principal principal) {

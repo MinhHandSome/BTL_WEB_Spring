@@ -10,7 +10,7 @@
 </head>
 
 <body class="bg-img">
-	<button onclick="window.location.href='/Studentshow'">Back</button>
+	<button onclick="window.location.href='/admin'">Back</button>
 
 	<div th:if="${session.msg}">
 
@@ -20,18 +20,21 @@
 	</div>
 
 
-	<form th:action="@{UpdateAccountStudent}" method="post">
+	<form th:action="@{/UpdateAccount}" method="post">
 		<ul class="form-style-1">
-			<h2> Student Account Information</h2>
+			<h2> Admin Account Information</h2>
 			<input type="hidden" th:field="*{appUser.userId}">
 
 			<li>
 				<label>Username</label>
 				<input type="text" class="form-control" th:field="*{appUser.userName}">
 			</li>
-
 			<li>
-				<label>Password</label>
+				<label> Old Password</label>
+				<input type="text" class="form-control" th:field="${oldPassword.}">
+			</li>
+			<li>
+				<label> New Password</label>
 				<input type="password" class="form-control" th:field="*{appUser.encrytedPassword}">
 			</li>
 			<li>

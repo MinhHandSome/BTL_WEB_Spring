@@ -9,67 +9,8 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" type="text/javascript" th:href="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-
+	<link rel="stylesheet" th:href="@{/table.css}">
 	<title></title>
-	<style>
-		body {
-			font-family: sans-serif;
-		}
-
-		.btnMenu:link,
-		.btnMenu:visited {
-			background-color: #4e57a6;
-			color: white;
-			padding: 14px 25px;
-			border-radius: 5px;
-			margin: 0px 10px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-		}
-
-		.btnMenu:hover,
-		.btnMenu:active {
-			background-color: #a1bff0;
-		}
-
-		th,
-		td {
-			border: 1px solid #352f91;
-			padding: 8px;
-		}
-
-		table {
-			border-collapse: collapse;
-			border: 1px solid #352f91;
-			text-align: center;
-			vertical-align: middle;
-		}
-
-		thead th {
-			width: 9%;
-		}
-
-		thead {
-			background-color: #352f91;
-			color: white;
-			font-size: 0.875rem;
-			text-transform: uppercase;
-			letter-spacing: 2%;
-		}
-
-
-		tbody tr:nth-child(odd) {
-			background-color: #fff;
-		}
-
-		tbody tr:nth-child(even) {
-			background-color: #eee;
-		}
-	</style>
-
-
-
 
 </head>
 
@@ -89,10 +30,11 @@
 			<thead>
 				<tr>
 					<th scope="col">ID</th>
-					<th scope="col">Name Subject</th>
-					<th scope="col">Duration </th>
-					
-					
+					<th scope="col">Subject</th>
+					<th scope="col">Duration Time</th>
+					<th scope="col">---</th>
+
+
 
 
 				</tr>
@@ -104,11 +46,11 @@
 					<td th:text="${model.ID}"></td>
 					<td th:text="${model.name_subject}"></td>
 					<td th:text="${model.duration_month}"></td>
-					
+
 					<td>
-						<a class="btn btn-sm btn-primary" th:href="@{'/Subjectshow/edit/' + ${model.ID}}">Edit</a>
-						<a class="btn btn-sm btn-danger" th:href="@{'/Subjectshow/delete/' + ${model.ID}}">Delete</a>
-						
+						<a class="btnChange-edit" th:href="@{'/Subjectshow/edit/' + ${model.ID}}">Edit</a>
+						<a class="btnChange-delete" th:href="@{'/Subjectshow/delete/' + ${model.ID}}">Delete</a>
+
 					</td>
 				</tr>
 			</tbody>
