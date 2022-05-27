@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" th:href="@{/notification.css}">
+	
+</head>
+
+
+
+<body>
+
+	<!-- Include _menu.html -->
+	<th:block th:include="/_menu"></th:block>
+	
+	<div class="title"><p>Notification from MHM University</p></div>
+	<div class="container centerss">
+
+		<table class="table table-striped">
+
+			<tbody>
+
+
+				<tr th:each="model:${notifications}">
+					<td>
+						<label>Date</label>
+					
+						<p th:text="${model.date}"></p>
+						<label>Title</label>
+						<p th:text="${model.title}"></p>
+						<label>Content</label>
+						<p th:text="${model.content}">
+						<p>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+</body>
+
+</html>

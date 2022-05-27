@@ -34,13 +34,13 @@
 			<h2>Student Information</h2>
 			<li>
 				<label>Fullname</label>
-				<input type="text" class="form-control" th:field="${newStudent.fullName}">
+				<input type="text" class="form-control" th:field="${newStudent.fullName}" required>
 
 			</li>
 
 			<li>
 				<label>DOB</label>
-				<input type="text" class="form-control" th:field="${newStudent.DOB}" required>
+				<input type="text" class="form-control" th:field="${newStudent.DOB}" pattern ="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)">
 			</li>
 			<li>
 				<label>Grade</label>
@@ -48,22 +48,22 @@
 			</li>
 
 			<li>
-				<label>Student code</label>
+				<label>Student ID</label>
 				<input type="text" class="form-control" th:field="${newStudent.MSV}" required>
 			</li>
 			<li>
 
 				<label>Address</label>
-				<input type="text" class="form-control" th:field="${newStudent.Address}" required minlength="5">
+				<input type="text" class="form-control" th:field="${newStudent.Address}" required>
 			</li>
 			<li>
 
 				<label>Phone number</label>
-				<input type="text" class="form-control" th:field="${newStudent.phoneNumber}" required minlength="10">
+				<input type="text" class="form-control" th:field="${newStudent.phoneNumber}"  pattern="(\+84|0)\d{9,10}" title="Nhập số điện thoại từ 10 đến 11 số" />>
 			</li>
 			<li>
 				<label>Email</label>
-				<input type="text" class="form-control" th:field="${newStudent.email}" required minlength="10">
+				<input type="email" class="form-control" th:field="${newStudent.email}" required >
 			</li>
 			<li>
 				<label>Username</label>

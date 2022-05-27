@@ -1,0 +1,146 @@
+body {
+			font-family: sans-serif;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-size: contain;
+			background-color:rgb(213, 238, 255);
+			background-image: url('');
+		background-position: center;
+		}
+		* {
+			margin: 0 auto;
+			padding: 0;
+			}
+	
+		.btnChange-edit:hover,
+		.btnChange-edit:active {
+			background-color: #a1bff0;
+		}
+
+		.btnChange-edit:link,
+		.btnChange-edit:visited {
+			background-color: rgb(63, 74, 182);
+			color: white;
+			font-size: 15px;
+		
+			padding: 10px 10px;
+			border-radius: 5px;
+			margin: 0px 0px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+		}
+
+		.btnChange-delete:hover,
+		.btnChange-delete:active {
+			background-color: #a1bff0;
+		}
+
+		.btnChange-delete:link,
+		.btnChange-delete:visited {
+			background-color: rgb(247, 9, 68);
+			color: white;
+			font-size: 15px;
+		
+			padding: 10px 10px;
+			border-radius: 5px;
+			margin: 0px 0px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+		}
+		.title{
+			font-size: 20px;
+			padding: 10px;
+			text-align: center;
+			font-weight: bolder;
+		
+		}
+		button{
+			background: rgb(0, 0, 128);
+			padding: 8px 20px 8px 20px;
+			margin: 0px 100px 10px 100px;
+			border: none;
+			color: #fff;
+			font-size: 15px;
+
+			border-radius: 15px;
+		}
+
+
+		th,
+		td {
+			border: 1px solid #352f91;
+		padding: 10px;
+			background-image: url('https://img2.thuthuatphanmem.vn/uploads/2018/11/30/hinh-nen-trang-cuc-dep_104325568.jpg');
+		}
+
+
+		table {
+			border-collapse: collapse;
+			border: 1px solid rgb(0, 0, 255);
+			
+			vertical-align: middle;
+			width: 80%;
+			
+		}
+
+		thead th{
+			width: auto;
+	
+			
+		}
+	
+		thead {
+			background-color: rgb(54, 63, 137);
+			color: white;
+			font-size: 0.875rem;
+			text-transform: uppercase;
+			letter-spacing: 2%;
+		}
+         label{
+			color: rgb(0, 0, 0);
+			font-weight:bolder;
+			font-size: 18px;
+	
+		}
+
+		tbody tr:nth-child(odd) {
+			background-color: #fff;
+		}
+
+		tbody tr:nth-child(even) {
+			background-color: #eee;
+		}
+		.menu{
+			margin: 0px;
+		}
+.menu ul {
+  background: rgb(40, 40, 40);
+  margin: 0;
+  list-style-type: none;
+  text-align: left;
+  padding: 0px 0px 0px 0px;  
+  margin-bottom: 30px;
+}
+.menu li {
+	font-size: 15px;
+	font-weight: bolder;
+  color: #f1f1f1;
+  display: inline-block;
+  width: 150px;
+  height: auto;
+  line-height: 40px;
+  margin-left: -5px;
+  text-align: center;
+  
+}
+.menu a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+}
+.menu a:hover {
+  background: #F1F1F1;
+  color: rgb(0, 0, 0);
+}

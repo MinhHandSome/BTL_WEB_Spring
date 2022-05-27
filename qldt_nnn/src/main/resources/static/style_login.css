@@ -1,35 +1,60 @@
 body {
 			font-family: sans-serif;
-			background-repeat: no-repeat;
+				background-color:rgb(213,238,255);
+	background-repeat: no-repeat;
 			background-attachment: fixed;
-			background-size: cover;
-			background-image: url('');
+			background-size: contain;
+			
+			background-image: url('login.png');
+		background-position: center;
 		}
 
-		.btnMenu:link,
-		.btnMenu:visited {
-			background-color: #4e57a6;
-			color: white;
-			padding: 14px 25px;
-			border-radius: 5px;
-			margin: 0px 10px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-		}
+		
 
 		* {
 			margin: 0 auto;
 			padding: 0;
 
 		}
+		.menu{
+			margin: 0px;
+		}
+.menu ul {
+  background: rgb(43, 43, 43);
+  margin: 0;
+  list-style-type: none;
+  text-align: left;
+  padding: 0px 0px 0px 0px;  
+  margin-bottom: 100px;
+}
+.menu li {
+  color: #f1f1f1;
+  display: inline-block;
+  width: 150px;
+  font-size: 15px;
+  font-weight: bolder;
+  height: auto;
+  line-height: 40px;
+  margin-left: -5px;
+  text-align: center;
+  
+}
+.menu a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+}
+.menu a:hover {
+  background: #F1F1F1;
+  color: rgb(0, 0, 0);
+}
 
 		.form-tt {
 			width: 400px;
 			border-radius: 10px;
 			overflow: hidden;
 			padding: 55px 55px 37px;
-			background-color:  blanchedalmond;
+			background-color:  rgb(255, 255, 255);
 		border-style: solid;
 			text-align: center;
 		}
@@ -87,7 +112,7 @@ body {
 			min-width: 120px;
 			height: 50px;
 			border-radius: 25px;
-			background: rgb(0, 0, 0);
+			background: rgb(0, 0, 64);
 			position: relative;
 			z-index: 1;
 			border: 0;
@@ -107,5 +132,5 @@ body {
 		}
 
 		.psw-text {
-			color: #fff;
+			color: rgb(0, 0, 0);
 		}

@@ -1,0 +1,111 @@
+body {
+			font-family: sans-serif;
+			background-color:  blanchedalmond;
+		}
+
+		.btnMenu:link,
+		.btnMenu:visited {
+			background-color: #4e57a6;
+			color: white;
+			padding: 14px 25px;
+			border-radius: 5px;
+			margin: 0px 10px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+		}
+		.btnMenu:hover,
+		.btnMenu:active {
+			background-color: #a1bff0;
+		}
+		
+
+		.btnChange-edit:hover,
+		.btnChange-edit:active {
+			background-color: #a1bff0;
+		}
+
+		.btnChange-edit:link,
+		.btnChange-edit:visited {
+			background-color: rgb(63, 74, 182);
+			color: white;
+			font-size: 15px;
+		
+			padding: 10px 10px;
+			border-radius: 5px;
+			margin: 0px 0px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+		}
+
+		.btnChange-delete:hover,
+		.btnChange-delete:active {
+			background-color: #a1bff0;
+		}
+
+		.btnChange-delete:link,
+		.btnChange-delete:visited {
+			background-color: rgb(247, 9, 68);
+			color: white;
+			font-size: 15px;
+		
+			padding: 10px 10px;
+			border-radius: 5px;
+			margin: 0px 0px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+		}
+		button{
+			background: rgb(0, 0, 128);
+			padding: 8px 20px 8px 20px;
+			margin: 0px 100px 10px 100px;
+			border: none;
+			color: #fff;
+			font-size: 15px;
+
+			border-radius: 15px;
+		}
+
+
+		th,
+		td {
+			border: 1px solid #352f91;
+			padding: 8px;
+		}
+
+
+		table {
+			border-collapse: collapse;
+			border: 1px solid rgb(0, 0, 255);
+			
+			vertical-align: middle;
+			width: 100%;
+			
+		}
+
+		thead th{
+			width: auto;
+			
+		}
+	
+		thead {
+			background-color: rgb(54, 63, 137);
+			color: white;
+			font-size: 0.875rem;
+			text-transform: uppercase;
+			letter-spacing: 2%;
+		}
+         label{
+			color: red;
+			font-weight:bolder;
+		}
+
+		tbody tr:nth-child(odd) {
+			background-color: #fff;
+		}
+
+		tbody tr:nth-child(even) {
+			background-color: #eee;
+		}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/javascript" th:href="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<title>Document</title>
+	<link rel="stylesheet" th:href="@{/add.css}">
+
+
+</head>
+
+<body class="bg-img">
+
+
+
+	<button onclick="window.location.href='/admin'">Back</button>
+
+
+	<div th:if="${session.msg}">
+
+		<div class="alert alert-primary" role="alert" th:text="${session.msg}">
+		</div>
+		<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+	</div>
+
+
+
+	<form method="POST" th:action="@{/addNotification}">
+		<ul class="form-style-1">
+			<h2> Notification Information</h2>
+			<li>
+				<label>Title</label>
+				<input type="text"  th:field="${newNotification.title}" required>
+
+			</li>
+
+			<li>
+				<label>Content</label>
+				<textarea th:field="${newNotification.content}" ></textarea>
+			</li>
+			
+			<br>
+			<li>
+				<input type="submit" value="Add Notification" />
+			</li>
+
+		</ul>
+	</form>
+	</div>
+</body>
+
+</html>

@@ -3,23 +3,6 @@ body {
 			background-color:  blanchedalmond;
 		}
 
-		.btnMenu:link,
-		.btnMenu:visited {
-			background-color: #4e57a6;
-			color: white;
-			padding: 14px 25px;
-			border-radius: 5px;
-			margin: 0px 10px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-		}
-		.btnMenu:hover,
-		.btnMenu:active {
-			background-color: #a1bff0;
-		}
-		
-
 		.btnChange-edit:hover,
 		.btnChange-edit:active {
 			background-color: #a1bff0;
@@ -74,6 +57,17 @@ body {
 			border: 1px solid #352f91;
 			padding: 8px;
 		}
+table tr > td:first-child
+{
+    counter-increment: rowNumber;
+}
+                
+table tr td:first-child::before
+{
+    content: counter(rowNumber);
+    min-width: 1em;
+    margin-right: 0.5em;
+}
 
 		table {
 			border-collapse: collapse;
@@ -81,12 +75,15 @@ body {
 			text-align: center;
 			vertical-align: middle;
 			width: 100%;
+			counter-reset: rowNumber;
 		}
 
-		thead th {
+		thead th{
 			width: auto;
+			
 		}
-
+		
+	
 		thead {
 			background-color: rgb(54, 63, 137);
 			color: white;

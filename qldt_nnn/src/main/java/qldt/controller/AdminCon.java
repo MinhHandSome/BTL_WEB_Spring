@@ -2,10 +2,12 @@ package qldt.controller
 
 ;
 
+import qldt.AccountChange;
 import qldt.AppUser;
 import qldt.Student;
 import qldt.Teacher;
 import qldt.Subject;
+import qldt.Notification;
 import qldt.UserRole;
 import qldt.ClassHP;
 import qldt.data.StudentRepo;
@@ -14,12 +16,13 @@ import qldt.data.TeacherRepo;
 import qldt.service.AppRoleSer;
 import qldt.service.AppUserSer;
 import qldt.service.ClassSer;
+import qldt.service.NotificationSer;
 import qldt.service.StudentSer;
 import qldt.service.SubjectSer;
 import qldt.service.TeacherSer;
 import qldt.service.UserRoleSer;
 import java.security.Principal;
-
+import java.time.LocalDate;
 import org.aspectj.weaver.NewConstructorTypeMunger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -38,6 +41,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -60,6 +64,8 @@ public class AdminCon {
 	private SubjectSer subjectSer;
 	@Autowired
 	private ClassSer classSer;
+	@Autowired
+	private NotificationSer notificationSer;
 
 	@PostMapping("/addStudent")
 	public String addStudent(@ModelAttribute Student student, @ModelAttribute AppUser appUser,
@@ -157,6 +163,16 @@ public class AdminCon {
 		return "addClass";
 	}
 
+	@PostMapping("/addNotification")
+	public String addNotification(@ModelAttribute Notification notification, Model model, HttpSession session) {
+		System.out.println(notification.getContent());
+		session.setAttribute("msg", "Notification Added Sucessfully...");
+		notificationSer.addNotification(notification);
+		model.addAttribute("newNotification", new Notification());
+		return "addNotification";
+		// return "redirect:/Teachershow";
+	}
+
 	@GetMapping("/Student")
 	public String Student(Model model) {
 		model.addAttribute("newAppUser", new AppUser());
@@ -195,47 +211,52 @@ public class AdminCon {
 
 	}
 
+	@GetMapping("/Notification")
+	public String Notification(Model model) {
+
+		model.addAttribute("newNotification", new Notification());
+
+		return "addNotification";
+
+	}
+
 	@GetMapping("/ChangePassword")
 	public String ChangePassword(Model model, Principal principal) {
 
 		String userName = principal.getName();
 		AppUser appUser = appUserSer.findAppUserbyUsername(userName);
-		
-		model.addAttribute("oldPassword", new String());
-		model.addAttribute("appUser", appUser);
+		AccountChange accountChange = new AccountChange();
+		accountChange.setUserName(appUser.getUserName());
+
+		model.addAttribute("accountChange", accountChange);
 		return "UpdateAccount";
 	}
 
 	@PostMapping("/UpdateAccount")
-	public String UpdateAccount(@ModelAttribute AppUser appUser, @ModelAttribute String oldPassword,
-			Principal principal, Model model, HttpSession session) {
+	public String UpdateAccount(@ModelAttribute AccountChange accountChange, Principal principal, Model model,
+			HttpSession session) {
 		String userName = principal.getName();
-		AppUser appUser1 = appUserSer.findAppUserbyUsername(userName);
-		String passwordCurrent = appUser1.getEncrytedPassword();
+		AppUser appUser = appUserSer.findAppUserbyUsername(userName);
+		String passwordCurrent = appUser.getEncrytedPassword();
 		System.out.println(passwordCurrent);
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		System.out.println(oldPassword);
-		System.out.println(BCrypt.checkpw("123", passwordCurrent));
+		System.out.println(BCrypt.checkpw(accountChange.getOldPassword(), passwordCurrent));
 		boolean checkExisted = false;
-		boolean check = false;
-		
-		if (BCrypt.checkpw("123", passwordCurrent) == true) {
+
+		if (BCrypt.checkpw(accountChange.getOldPassword(), passwordCurrent) == true) {
 			checkExisted = true;
 		}
-		System.out.println(checkExisted);
-//		if (checkExisted = true && appUser.getEncrytedPassword() != oldPassword) {
-//			check = true;
-//		}
+
 		if (checkExisted == false) {
 			session.setAttribute("msg", "Old Password is incorrect...");
-	
-		} 
-		else {
-			String encodedPassword = passwordEncoder.encode(appUser.getEncrytedPassword());
+		} else if (accountChange.getNewPassword().equals(accountChange.getConfirmPassword()) == false) {
+			session.setAttribute("msg", "New password is the same Confirm password");
+		} else {
+			String encodedPassword = passwordEncoder.encode(accountChange.getNewPassword());
 			appUser.setEnabled(true);
 			appUser.setEncrytedPassword(encodedPassword);
 			appUserSer.addAppUser(appUser);
-			session.setAttribute("msg", "Update Account kj ibyiu Sucessfully...");
+			session.setAttribute("msg", "Update Account Sucessfully...");
 
 		}
 
@@ -300,6 +321,13 @@ public class AdminCon {
 		return "Classshow";
 	}
 
+	@GetMapping("/Notificationshow")
+	public String NoHome(Model model) {
+		List<Notification> notification = notificationSer.getNotificationt();
+		model.addAttribute("notification", notification);
+		return "Notificationshow";
+	}
+
 	@GetMapping("/Studentshow/edit/{ID}")
 	public String editST(@PathVariable("ID") long ID, Model m) {
 		Student student = studentSer.getStdByID(ID);
@@ -332,6 +360,13 @@ public class AdminCon {
 		return "ClassEdit";
 	}
 
+	@GetMapping("/Notificationshow/edit/{ID}")
+	public String editNo(@PathVariable("ID") long ID, Model model) {
+		Notification notification = notificationSer.getNodByID(ID);
+		model.addAttribute("notification", notification);
+		return "NotificationEdit";
+	}
+
 	@GetMapping("/Studentshow/edit_account/{ID}")
 	public String editAccountStudent(@PathVariable("ID") long ID, Model m) {
 
@@ -359,6 +394,17 @@ public class AdminCon {
 		model.addAttribute("newStudent", new Student());
 		session.setAttribute("msg", "Student Edited Sucessfully...");
 		return "addStudent";
+	}
+
+	@PostMapping("/Notificationshow/edit/UpdateNotification")
+	public String UpdateNotification(@ModelAttribute Notification notification, Model model, HttpSession session) {
+		Date date = new Date();
+		notification.setDate(date);
+		notificationSer.addNotification(notification);
+
+		model.addAttribute("newStudent", new Student());
+		session.setAttribute("msg", "Notification Edited Sucessfully...");
+		return "redirect:/Notificationshow";
 	}
 
 	@PostMapping("/Subjectshow/edit/UpdateSubject")
@@ -508,5 +554,13 @@ public class AdminCon {
 		classSer.deleteClasById(ID);
 		session.setAttribute("msg", "The Subject ID " + ID + " Deleted Succesfully");
 		return "redirect:/Classshow";
+	}
+
+	@GetMapping("/Notificationshow/delete/{ID}")
+	public String deleteNotification(@PathVariable("ID") Long ID, HttpSession session) {
+
+		notificationSer.deleteNotificationById(ID);
+		session.setAttribute("msg", "The Notification ID " + ID + " Deleted Succesfully");
+		return "redirect:/Notificationshow";
 	}
 }

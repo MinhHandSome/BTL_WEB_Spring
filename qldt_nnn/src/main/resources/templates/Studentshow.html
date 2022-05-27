@@ -29,15 +29,15 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th scope="col">ID</th>
+					<th scope="col"></th>
 					<th scope="col">FullName</th>
 					<th scope="col">DOB</th>
 					<th scope="col">Grade</th>
-					<th scope="col">Student code</th>
+					<th scope="col">Student ID</th>
 					<th scope="col">Address</th>
 					<th scope="col">Phone number</th>
 					<th scope="col">Email</th>
-					<th scope="col">USERNAME</th>
+					<th scope="col">Username</th>
 					<th scope="col">---</th>
 				</tr>
 			</thead>
@@ -45,7 +45,7 @@
 
 
 				<tr th:each="model:${student}">
-					<td th:text="${model.ID}"></td>
+					<td ></td>
 					<td th:text="${model.fullName}"></td>
 					<td th:text="${model.DOB}"></td>
 					<td th:text="${model.Grade}"></td>

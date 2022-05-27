@@ -3,35 +3,16 @@
 
 <head>
 	<title>Logout</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/menu.css}" />
 </head>
-<style>
-	body {
-		font-family: sans-serif;
-		background-repeat: no-repeat;
-		background-attachment: fixed;
-		background-size: cover;
-		background-image: url('');
-	}
 
-	.btnMenu:link,
-	.btnMenu:visited {
-		background-color: #4e57a6;
-		color: white;
-		padding: 14px 25px;
-		border-radius: 5px;
-		margin: 0px 10px;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-	}
-</style>
 
 <body>
 	<!-- Include _menu.html -->
 	<th:block th:include="/_menu"></th:block>
-
-	<h1>Logout Successful!</h1>
-	<a href="">
+	<div class="success">
+		<h1>Logout Successful</h1>
+	</div>
 </body>
 
 </html>

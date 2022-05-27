@@ -1,19 +1,12 @@
-<div xmlns:th="http://www.thymeleaf.org" style="border: 1px solid #ccc;padding:5px;margin-bottom:20px;height:50px;background-color: #e9eaf2;
-		border-radius: 5px;
-align-items: center;
-display: flex;
-justify-content: center;">
-
-	<a class="btnMenu" th:href="@{/}">Home</a>
-
-	<a class="btnMenu" th:href="@{/userInfo}">User Info</a>
-
-	<a class="btnMenu" th:href="@{/admin}">Admin</a>
-
-	<a class="btnMenu" th:href="@{/student_home}">Student</a>
-
-	<a class="btnMenu" th:href="@{/teacher_home}">Teacher</a>
-
-	<a class="btnMenu" th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
-
+<div id="menu" class ="menu">
+	<ul>
+		<li><a th:href="@{/}">Home</a></li>
+		<li><a th:href="@{/admin}">Admin</a></li>
+		<li><a th:href="@{/student_home}">Student</a></li>
+		<li><a th:href="@{/teacher_home}">Teacher</a></li>
+		<li><a th:href="@{/notification_home}">Notification</a></li>
+		<li><a th:href="@{/userInfo}">User Information</a></li>
+		<li><a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a></li>
+	</ul>
 </div>
+ 

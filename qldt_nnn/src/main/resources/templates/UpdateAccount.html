@@ -23,19 +23,23 @@
 	<form th:action="@{/UpdateAccount}" method="post">
 		<ul class="form-style-1">
 			<h2> Admin Account Information</h2>
-			<input type="hidden" th:field="*{appUser.userId}">
+			
 
 			<li>
 				<label>Username</label>
-				<input type="text" class="form-control" th:field="*{appUser.userName}">
+				<input type="text" class="form-control" th:field="${accountChange.userName}">
 			</li>
 			<li>
 				<label> Old Password</label>
-				<input type="text" class="form-control" th:field="${oldPassword.}">
+				<input type="password" class="form-control" th:field="${accountChange.oldPassword}">
 			</li>
 			<li>
 				<label> New Password</label>
-				<input type="password" class="form-control" th:field="*{appUser.encrytedPassword}">
+				<input type="password" class="form-control" th:field="${accountChange.newPassword}">
+			</li>
+			<li>
+				<label> Confirm Password</label>
+				<input type="password" class="form-control" th:field="${accountChange.confirmPassword}">
 			</li>
 			<li>
 				<input type="submit" value="Update Account" />

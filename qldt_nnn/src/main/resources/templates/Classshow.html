@@ -23,7 +23,8 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th scope="col">ID</th>
+					<th scope="col"></th>
+					<th scope="col">Class ID</th>
 					<th scope="col">SUBJECT</th>
 					<th scope="col">TEACHER</th>
 					<th scope="col">ROOM</th>
@@ -39,7 +40,8 @@
 
 
 				<tr th:each="model:${classHP}">
-					<td th:text="${model.ID}"></td>
+					<td></td>
+					<td th:text="'CL'+${model.ID}"></td>
 					<td th:text="${model.subject.name_subject}"></td>
 					<td th:text="${model.teacher.fullName}"></td>
 					<td th:text="${model.room}"></td>

@@ -50,7 +50,7 @@
 			font-size: 25px;
 		}
 
-		.form-style-1 input[type=text] ,input[type=password]{
+		.form-style-1 input[type=text] ,input[type=password],input[type=email],textarea{
 			width: 85%;
 
 			box-sizing: border-box;
@@ -65,7 +65,21 @@
 			-o-transition: all 0.30s ease-in-out;
 			outline: none;
 		}
-
+		textarea{
+			width: 85%;
+			height: 200px;
+			box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			border: 2px solid #BEBEBE;
+			padding: 7px;
+			margin: 0px;
+			-webkit-transition: all 0.30s ease-in-out;
+			-moz-transition: all 0.30s ease-in-out;
+			-ms-transition: all 0.30s ease-in-out;
+			-o-transition: all 0.30s ease-in-out;
+			outline: none;
+		}
 		.form-style-1 input[type=text]:focus {
 			-moz-box-shadow: 0 0 8px #88D5E9;
 			-webkit-box-shadow: 0 0 8px #88D5E9;
@@ -88,7 +102,7 @@
 		}
 
 		.form-style-1 .field-textarea {
-			height: 100px;
+			height: 0px;
 		}
         .checkbox {
 			display: block;
