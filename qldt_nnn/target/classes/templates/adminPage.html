@@ -24,15 +24,17 @@
 				<li><a href="/Teacher"><i class="fas fa-pencil-alt"></i>Add Teacher</a></li>
 				<li><a href="/Subject"><i class="fas fa-pencil-alt"></i>Add Subject</a></li>
 				<li><a href="/Class"><i class="fas fa-pencil-alt"></i>Add Class</a></li>
+				<li><a href="/Notification"><i class="fas fa-pencil-alt"></i>Notification</a></li>
 
 				<li><a href="/Studentshow"><i class="fas fa-bookmark"></i>Show Students</a></li>
 				<li><a href="/Teachershow"><i class="fas fa-bookmark"></i>Show Teachers</a></li>
 				<li><a href="/Subjectshow"><i class="fas fa-bookmark"></i>Show Subjects</a></li>
 				<li><a href="/Classshow"><i class="fas fa-bookmark"></i>Show Classes</a></li>
+				<li><a href="/Notificationshow"><i class="fas fa-bookmark"></i>Show Notifications</a></li>
 				<br>
 				<br>
 				<br>
-				
+
 				<li><a href="/"><i class="fas fa-home"></i>Home</a></li>
 				<li><a href="ChangePassword"><i class="fas fa-key"></i>Change password</a></li>
 				<li> <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}"><i
@@ -43,10 +45,7 @@
 			</ul>
 		</nav>
 	</div>
-	<div class=" content">
-		<h1> Hello Admin</h1>
-		<h1> This is admin home</h1>
-	</div>
+	
 </body>
 
 </html>

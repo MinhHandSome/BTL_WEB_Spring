@@ -1,0 +1,57 @@
+body {
+			font-family: sans-serif;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-size: contain;
+			background-color: rgb(213, 238, 255);
+			background-image: url('403.png');
+		background-position: center;
+		}
+
+		
+
+		* {
+			margin: 0 auto;
+			padding: 0;
+			}
+		.hello{
+			font-size: 25px;
+			font-weight: bolder;
+			color: black;
+			text-align: center;
+			padding: 20px;
+			
+		}
+
+.menu{
+			margin: 0px;
+		}
+.menu ul {
+  background: rgb(40, 40, 40);
+  margin: 0;
+  list-style-type: none;
+  text-align: left;
+  padding: 0px 0px 0px 0px;  
+  margin-bottom: 30px;
+}
+.menu li {
+	font-size: 15px;
+	font-weight: bolder;
+  color: #f1f1f1;
+  display: inline-block;
+  width: 150px;
+  height: auto;
+  line-height: 40px;
+  margin-left: -5px;
+  text-align: center;
+  
+}
+.menu a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+}
+.menu a:hover {
+  background: #F1F1F1;
+  color: rgb(0, 0, 0);
+}

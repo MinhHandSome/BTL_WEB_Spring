@@ -29,7 +29,8 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th scope="col">ID</th>
+					<th scope="col"></th>
+					<th scope="col">Subject ID</th>
 					<th scope="col">Subject</th>
 					<th scope="col">Duration Time</th>
 					<th scope="col">---</th>
@@ -41,9 +42,9 @@
 			</thead>
 			<tbody>
 
-
 				<tr th:each="model:${subject}">
-					<td th:text="${model.ID}"></td>
+					<td></td>
+					<td th:text="'SJ'+${model.ID}"></td>
 					<td th:text="${model.name_subject}"></td>
 					<td th:text="${model.duration_month}"></td>
 
@@ -52,7 +53,9 @@
 						<a class="btnChange-delete" th:href="@{'/Subjectshow/delete/' + ${model.ID}}">Delete</a>
 
 					</td>
+
 				</tr>
+
 			</tbody>
 		</table>
 

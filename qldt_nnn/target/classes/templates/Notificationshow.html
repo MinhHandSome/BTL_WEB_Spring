@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" type="text/javascript" th:href="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+
+	<title></title>
+	<link rel="stylesheet" th:href="@{/table.css}">
+
+</head>
+
+<body class="bg-img">
+	<button onclick="window.location.href='/admin'">Back</button>
+	<div th:if="${session.msg}">
+
+		<div class="alert alert-primary" role="alert" th:text="${session.msg}">
+		</div>
+		<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+	</div>
+	<br><br><br>
+	<div class="container centerss">
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col"></th>
+					<th scope="col">Time</th>
+					<th scope="col">Title</th>
+					<th scope="col">Content</th>
+					
+
+					<th scope="col">---</th>
+
+				</tr>
+			</thead>
+			<tbody>
+
+
+				<tr th:each="model:${notification}">
+					<td></td>
+
+					<td th:text="${model.date}"></td>
+					<td th:text="${model.title}"></td>
+					<td width="400" class="content" th:text="${model.content}"></td>
+					
+					<td>
+						<a class="btnChange-edit" th:href="@{'/Notificationshow/edit/' + ${model.ID}}">Edit</a>
+						<a class="btnChange-delete" th:href="@{'/Notificationshow/delete/' + ${model.ID}}">Delete</a>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+
+</body>
+
+</html>

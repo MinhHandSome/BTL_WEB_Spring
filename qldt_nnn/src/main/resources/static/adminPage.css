@@ -8,6 +8,12 @@
 }
 body{
 	background-color: blanchedalmond;
+	background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-size: contain;
+			
+			background-image: url('Admin.png');
+		background-position: center;
 }
 .btnMenu:link,
 	.btnMenu:visited {
@@ -92,7 +98,7 @@ body{
 }
 #sidebar .list-items li{
   padding-left: 40px;
-  line-height: 50px;
+  line-height: 42px;
   border-top: 1px solid rgba(255,255,255,0.1);
   border-bottom: 1px solid #333;
   transition: all 0.3s ease;

@@ -1,38 +1,21 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-	<title th:utext="${title}"></title>
-</head>
-<style>
-	body {
-		font-family: sans-serif;
-		background-repeat: no-repeat;
-		background-attachment: fixed;
-		background-size: cover;
-		background-image: url('');
+	<title>Home</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" th:href="@{/menu.css}" />
 	
-	}
-
-	.btnMenu:link,
-	.btnMenu:visited {
-		background-color:rgb(24, 35, 39);
-		color: white;
-		padding: 14px 25px;
-		border-radius: 5px;
-		margin: 0px 10px;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-	}
-</style>
+</head>
 
 <body>
 
-	<!-- Include _menu.html -->
+	<!-- Navbar -->
 	<th:block th:include="/_menu"></th:block>
 
-	<h2>Message : <span th:utext="${message}"></span></h2>
+
+
 
 </body>
 
