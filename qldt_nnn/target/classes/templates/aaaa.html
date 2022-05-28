@@ -1,0 +1,33 @@
+<div class="formde">
+
+  <form th:action="@{UpdateMarks}" method="post" >
+  
+  	<div class="form-group">
+      <label >ID timetable</label>
+      <input type="text" class="form-control" th:field="*{timetable1.ID}">
+    </div>
+    
+    <div class="form-group">
+      <label >ID class</label>
+      <input type="text" class="form-control" th:field="*{timetable1.classHP.ID}">
+    </div>
+
+    <div class="form-group">
+      <label >Student ID</label>
+      <input type="text" class="form-control" th:field="*{timetable1.student.ID}">
+    </div>
+
+    <div class="form-group">
+      <label >Mark1</label>
+      <input type="text" class="form-control" th:field="*{timetable1.diem1}">
+    </div>
+    
+    <div class="form-group">
+      <label >Mark2</label>
+      <input type="text" class="form-control" th:field="*{timetable1.diem2}">
+    </div>
+    
+    <div class="form-group">
+      <label >Mark3</label>
+      <input type="text" class="form-control" th:field="*{timetable1.diem3}">
+    </div>

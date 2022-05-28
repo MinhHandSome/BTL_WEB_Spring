@@ -51,5 +51,17 @@ public class AppUserSer {
     	}
     	return check_existed;
     }
+    public boolean checkExistedUserNamePassCurrent( String username, Long ID) {
+    	List<AppUser> appUsers= appUserRepo.findAll();
+    	boolean check_existed = false;
+    	for(AppUser appUser: appUsers) {
+    		if(appUser.getUserName().equalsIgnoreCase(username)) {
+    			if(appUser.getUserId()==ID) continue;
+    			check_existed=true;
+    			break;
+    		}
+    	}
+    	return check_existed;
+    }
 
 }

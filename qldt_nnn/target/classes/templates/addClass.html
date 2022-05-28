@@ -18,7 +18,7 @@
 
 	<div th:if="${session.msg}">
 
-		<div class="alert alert-primary" role="alert" th:text="${session.msg}">
+		<div style="color: green;" class="alert alert-primary" role="alert" th:text="${session.msg}">
 		</div>
 		<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
 	</div>
@@ -38,6 +38,12 @@
 
 
 				</select>
+				<div th:if="${session.msg_busy}">
+
+					<div style="color: red;" class="alert alert-primary" role="alert" th:text="${session.msg_busy}">
+					</div>
+					<th:block th:text="${#session.removeAttribute('msg_busy')}"></th:block>
+				</div>
 			</li>
 
 			<li>
@@ -50,13 +56,26 @@
 					<option value="Thứ Sáu">Thứ Sáu</option>
 					<option value="Thứ Bảy">Thứ Bảy</option>
 					<option value="Chủ Nhật">Chủ Nhật</option>
+				</select>
+				<div th:if="${session.msg_roomtime}">
+
+					<div style="color: red;" class="alert alert-primary" role="alert" th:text="${session.msg_roomtime}">
+					</div>
+					<th:block th:text="${#session.removeAttribute('msg_roomtime')}"></th:block>
+				</div>
 			</li>
-			</select>
 
+			<li>
 
-			<label>Room</label>
-			<input type="text" class="form-control" th:field="*{room}" required>
+				<label>Room</label>
+				<input type="text" class="form-control" th:field="*{room}" required>
+				<div th:if="${session.msg_roomtime}">
 
+					<div style="color: red;" class="alert alert-primary" role="alert" th:text="${session.msg_roomtime}">
+					</div>
+					<th:block th:text="${#session.removeAttribute('msg_roomtime')}"></th:block>
+				</div>
+			</li>
 			<li>
 				<label>Subject</label>
 				<select class="field-select" th:field="*{subject.name_subject}">

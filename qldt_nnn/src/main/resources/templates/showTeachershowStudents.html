@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" type="text/javascript" th:href="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+
+	<title></title>
+	<link rel="stylesheet" th:href="@{/table.css}">
+
+</head>
+
+<body class="bg-img">
+	<button onclick="window.location.href='/teacher_home'">Back</button>
+	<br><br><br>
+	<div class="container centerss">
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col"></th>
+					<th scope="col">FullName</th>
+					<th scope="col">Student ID</th>
+					<th scope="col">Phone number</th>
+					<th scope="col">Email</th>
+					<th scope="col">Mark 1</th>
+					<th scope="col">Mark 2</th>
+					<th scope="col">Mark 3</th>
+					<th scope="col">Edit marks</th>
+
+				</tr>
+			</thead>
+			<tbody>
+
+
+				<tr th:each="model:${timetable1}">
+					<td ></td>
+					<td th:text="${model.student.fullName}"></td>
+					<td th:text="${model.student.MSV}"></td>
+					<td th:text="${model.student.phoneNumber}"></td>
+					<td th:text="${model.student.email}"></td>
+					<td th:text="${model.diem1}"></td>
+					<td th:text="${model.diem2}"></td>
+					<td th:text="${model.diem3}"></td>
+					<td>
+						<a class="btn btn-sm btn-primary" th:href="@{'/showTeacherClasses/showStudents/editMarks/' + ${model.ID}}">Edit</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+
+</body>
+
+</html>

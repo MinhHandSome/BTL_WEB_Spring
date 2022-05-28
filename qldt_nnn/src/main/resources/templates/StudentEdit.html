@@ -15,11 +15,10 @@
 
 	<div th:if="${session.msg}">
 
-		<div class="alert alert-primary" role="alert" th:text="${session.msg}">
+		<div style="color:green;" class="alert alert-primary" role="alert" th:text="${session.msg}">
 		</div>
 		<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
 	</div>
-
 
 	<form th:action="@{UpdateStudent}" method="post">
 		<ul class="form-style-1">
@@ -28,37 +27,52 @@
 
 			<li>
 				<label>FullName</label>
-				<input type="text" class="form-control" th:field="*{student.fullName}">
+				<input type="text" class="form-control" th:field="*{student.fullName}" required>
 			</li>
 
 			<li>
-			<label>DOB</label>
-			<input type="text" class="form-control" th:field="*{student.DOB}">
+				<label>DOB</label>
+				<input type="date" class="form-control" th:field="${student.DOB}">
 			</li>
 
 			<li>
 				<label>Grade</label>
-				<input type="text" class="form-control" th:field="*{student.Grade}">
+				<input type="text" class="form-control" th:field="${student.Grade}" required>
 			</li>
 
 			<li>
 				<label>Student ID</label>
-				<input type="text" class="form-control" th:field="*{student.MSV}">
+				<input type="text" class="form-control" th:field="${student.MSV}" pattern="SV\d{3}"
+					title="Student ID Input string was not in a correct format(SV123)">
+				<div th:if="${session.msg_studentID}">
+
+					<div style="color: red;" class="alert alert-primary" role="alert"
+						th:text="${session.msg_studentID}">
+					</div>
+					<th:block th:text="${#session.removeAttribute('msg_studentID')}"></th:block>
+				</div>
 			</li>
 
 			<li>
 				<label>Address</label>
-				<input type="text" class="form-control" th:field="*{student.Address}">
+				<input type="text" class="form-control" th:field="*{student.Address}" required>
 			</li>
 
 			<li>
 				<label>Phone number</label>
-				<input type="text" class="form-control" th:field="*{student.phoneNumber}">
+				<input type="text" class="form-control" th:field="${student.phoneNumber}" pattern="(\+84|0)\d{9,10}"
+					title="Phone number Input string was not in a correct format">
 			</li>
 
 			<li>
 				<label>Email</label>
-				<input type="text" class="form-control" th:field="*{student.email}">
+				<input type="email" class="form-control" th:field="${student.email}" required>
+				<div th:if="${session.msg_email}">
+
+					<div style = "color: red;" class="alert alert-primary" role="alert" th:text="${session.msg_email}">
+					</div>
+					<th:block th:text="${#session.removeAttribute('msg_email')}"></th:block>
+				</div>
 
 			</li>
 			<input type="hidden" th:field="*{student.appUser.userId}">
@@ -67,7 +81,7 @@
 
 			<input type="hidden" class="form-control" th:field="*{student.appUser.encrytedPassword}">
 
-		
+
 
 			<li>
 

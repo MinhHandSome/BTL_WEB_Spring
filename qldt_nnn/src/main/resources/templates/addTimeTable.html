@@ -10,14 +10,10 @@
 	<title>Document</title>
 	<link rel="stylesheet" th:href="@{/add.css}">
 
-
 </head>
 
 <body class="bg-img">
-
-
-
-	<button onclick="window.location.href='/admin'">Back</button>
+	<button onclick="window.location.href='/student_home'">Back</button>
 
 
 	<div th:if="${session.msg}">
@@ -28,29 +24,28 @@
 	</div>
 
 
-
-	<form method="POST" th:action="@{/addNotification}">
+	<form method="POST" th:action="@{/addTimeTable}" th:object="${newTimeTable}">
 		<ul class="form-style-1">
-			<h2> Notification Information</h2>
+			<h2> Register Class</h2>
 			<li>
-				<label>Title</label>
-				<input type="text"  th:field="${newNotification.title}" required>
+				<label>Class</label>
+				<select class="field-select" th:field=" *{classHP.ID}">
 
-			</li>
+					<option th:each="class : ${classes}" th:value="${class.ID}"><span
+							th:text="${class.teacher.fullName}+' | ' +${class.subject.name_subject} +' | ' +${class.time} + ' | '+ ${class.room}">
+							Teacher1</span><br />
+					</option>
 
+
+				</select>
+				<br><br><br><br>
 			<li>
-				<label>Content</label>
-				<textarea th:field="${newNotification.content}" required></textarea>
+				<input type="submit" value="Register" />
 			</li>
-			
-			<br>
-			<li>
-				<input type="submit" value="Add Notification" />
-			</li>
-
 		</ul>
+
 	</form>
-	</div>
+
 </body>
 
 </html>

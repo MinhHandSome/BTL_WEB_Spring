@@ -50,7 +50,7 @@
 			font-size: 25px;
 		}
 
-		.form-style-1 input[type=text] ,input[type=password],input[type=email],textarea{
+		.form-style-1 input[type=text] ,input[type=password],input[type=email],textarea,input[type=date]{
 			width: 85%;
 
 			box-sizing: border-box;

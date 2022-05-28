@@ -19,7 +19,7 @@
 
 	<div th:if="${session.msg}">
 
-		<div class="alert alert-primary" role="alert" th:text="${session.msg}">
+		<div style="color: green;" class="alert alert-primary" role="alert" th:text="${session.msg}">
 		</div>
 		<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
 	</div>
@@ -31,13 +31,19 @@
 			<h2> Subject Information </h2>
 			<li>
 				<label>Name Subject</label>
-				<input type="text" class="form-control" th:field="*{name_subject}">
+				<input type="text" class="form-control" th:field="*{name_subject}" require>
+				<div th:if="${session.msg_subject}">
+
+					<div style="color: red;" class="alert alert-primary" role="alert" th:text="${session.msg_subject}">
+					</div>
+					<th:block th:text="${#session.removeAttribute('msg_subject')}"></th:block>
+				</div>
 			</li>
 
 
 			<li>
-				<label>Duration (month)</label>
-				<input type="text" class="form-control" th:field="*{duration_month}">
+				<label>Duration( month)</label>
+				<input type="text" class="form-control" th:field="*{duration_month}" required>
 			</li>
 
 			<li>
