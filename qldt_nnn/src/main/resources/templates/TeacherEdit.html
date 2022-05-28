@@ -30,23 +30,30 @@
 
 			<li>
 				<label>FullName</label>
-				<input type="text" class="form-control" th:field="*{teacher.fullName}">
+				<input type="text" class="form-control" th:field="*{teacher.fullName}" required>
 			</li>
 			<li>
 				<label>DOB</label>
-				<input type="text" class="form-control" th:field="*{teacher.DOB}">
+				<input type="date" class="form-control" th:field="*{teacher.DOB}" required>
 			</li>
 			<li>
 				<label>Address</label>
-				<input type="text" class="form-control" th:field="*{teacher.Address}">
+				<input type="text" class="form-control" th:field="*{teacher.Address}" required minlength="2">
 			</li>
 			<li>
 				<label>Phone number</label>
-				<input type="text" class="form-control" th:field="*{teacher.phoneNumber}">
+				<input type="text" class="form-control" th:field="*{teacher.phoneNumber}" pattern="(\+84|0)\d{9,10}"
+					title="Phone number Input string was not in a correct format">
 			</li>
 			<li>
-				<label>email</label>
+				<label>Email</label>
 				<input type="text" class="form-control" th:field="*{teacher.email}">
+				<div th:if="${session.msg_email}">
+
+					<div style="color: red;" class="alert alert-primary" role="alert" th:text="${session.msg_email}">
+					</div>
+					<th:block th:text="${#session.removeAttribute('msg_email')}"></th:block>
+				</div>
 			</li>
 
 			<input type="hidden" th:field="*{teacher.appUser.userId}">

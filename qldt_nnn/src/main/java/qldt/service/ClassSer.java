@@ -1,5 +1,6 @@
 package qldt.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ public class ClassSer {
 		return classRepo.save(classs);
 
 	}
+
 	public ClassHP getCldByID(long ID) {
 
 		Optional<ClassHP> model = classRepo.findById(ID);
@@ -30,6 +32,7 @@ public class ClassSer {
 		}
 		return null;
 	}
+
 	public List<ClassHP> getClassHP() {
 		return classRepo.findAll();
 	}
@@ -45,28 +48,76 @@ public class ClassSer {
 		}
 		return check_exsited;
 	}
+	public boolean checkExistedRoomTimePassCurrent(String room, String time, Long ID) {
+		List<ClassHP> classHPs = classRepo.findAll();
+		boolean check_exsited = false;
+		for (ClassHP classHP : classHPs) {
+			if (classHP.getRoom().equalsIgnoreCase(room) && classHP.getTime().equalsIgnoreCase(time)) {
+				if(classHP.getID()==ID) continue;
+				check_exsited = true;
+				break;
+			}
+		}
+		return check_exsited;
+	}
 
 	public void deleteClasById(Long ID) {
 		classRepo.deleteById(ID);
 
 	}
 
-	public ClassHP findClassbySubject(Subject subject) {
+	public List<ClassHP> findClassbySubject(Subject subject) {
 		List<ClassHP> classHPs = classRepo.findAll();
+		List<ClassHP> classHPs1 = new ArrayList<>();
 		for (ClassHP classHP : classHPs) {
-			if (classHP.getSubject().getName_subject().equalsIgnoreCase(subject.getName_subject())) {
-				return classHP;
+			if (classHP.getSubject().getID()==subject.getID()) {
+				classHPs1.add(classHP);
 			}
+		}
+		return classHPs1;
+	}
+
+	public List<ClassHP> findClassByTeacher(Teacher teacher) {
+		List<ClassHP> classHPs = classRepo.findAll();
+		List<ClassHP> classHPs1 = new ArrayList<>();
+		for (ClassHP classHP : classHPs) {
+			if (classHP.getTeacher().getID() == teacher.getID()) {
+				classHPs1.add(classHP);
+			}
+		}
+		return classHPs1;
+	}
+
+	public ClassHP getClassHPByID(long ID) {
+
+		Optional<ClassHP> model = classRepo.findById(ID);
+
+		if (model.isPresent()) {
+			return model.get();
 		}
 		return null;
 	}
-	public  ClassHP findClassByTeacher(Teacher teacher) {
+	public boolean checkBusyTeacher(Teacher teacher, String time) {
 		List<ClassHP> classHPs = classRepo.findAll();
-		for (ClassHP classHP : classHPs) {
-			if (classHP.getTeacher().getID() == teacher.getID()) {
-				return classHP;
+		boolean checkBusy = false;
+		for(ClassHP classHP:classHPs) {
+			if(classHP.getTeacher().getID()==teacher.getID() && classHP.getTime().equalsIgnoreCase(time)) {
+				checkBusy=true;
+				break;
 			}
 		}
-		return null;
+		return checkBusy;
+	}
+	public boolean checkBusyTeacherPassCurrent(Teacher teacher, String time,Long ID) {
+		List<ClassHP> classHPs = classRepo.findAll();
+		boolean checkBusy = false;
+		for(ClassHP classHP:classHPs) {
+			if(classHP.getTeacher().getID()==teacher.getID() && classHP.getTime().equalsIgnoreCase(time)) {
+				if(classHP.getID()==ID) continue;
+				checkBusy=true;
+				break;
+			}
+		}
+		return checkBusy;
 	}
 }

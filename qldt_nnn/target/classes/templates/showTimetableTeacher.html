@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" type="text/javascript" th:href="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+
+	<title></title>
+	<link rel="stylesheet" th:href="@{/table.css}">
+
+</head>
+
+<body class="bg-img">
+	<button onclick="window.location.href='/teacher_home'">Back</button>
+	<br><br><br>
+	<div class="container centerss">
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col"> </th>
+					<th scope="col"> Class ID </th>
+					<th scope="col">Subject</th>
+					<th scope="col">Teacher</th>
+					<th scope="col">Room</th>
+					<th scope="col">Time</th>
+					<th scope="col">Show students</th>
+				</tr>
+			</thead>
+			<tbody>
+
+
+				<tr th:each="model:${timetable_teacher}">
+					<td ></td>
+					<td th:text="'CL'+${model.ID}"></td>
+					<td th:text="${model.subject.name_subject}"></td>
+					<td th:text="${model.teacher.fullName}"></td>
+					<td th:text="${model.room}"></td>
+					<td th:text="${model.time}"></td>
+					<td><a class="btnChange-edit"
+							th:href="@{'/showTeacherClasses/showStudents/' + ${model.ID}}">Show</a></td>
+
+
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+
+</body>
+
+</html>

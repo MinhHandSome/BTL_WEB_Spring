@@ -25,12 +25,18 @@
 
 			<li>
 				<label>Username</label>
-				<input type="text" class="form-control" th:field="*{appUser.userName}">
+				<input type="text" class="form-control" th:field="*{appUser.userName}" required>
+				<div th:if="${session.msg_username}">
+
+					<div style="color: red;" class="alert alert-primary" role="alert" th:text="${session.msg_username}">
+					</div>
+					<th:block th:text="${#session.removeAttribute('msg_username')}"></th:block>
+				</div>
 			</li>
 
 			<li>
 				<label>Password</label>
-				<input type="password" class="form-control" th:field="*{appUser.encrytedPassword}">
+				<input type="password" class="form-control" th:field="*{appUser.encrytedPassword}" required>
 			</li>
 			<li>
 				<input type="submit" value="Update Account" />

@@ -63,4 +63,17 @@ public class TeacherSer {
 		return check_existed;
 
 	}
+	public boolean checkExistEmailPassCurrent(String email, Long ID) {
+		List<Teacher> teachers = teacherRepo.findAll();
+		boolean check_existed = false;
+		for (Teacher teacher : teachers) {
+			if (teacher.getEmail().equalsIgnoreCase(email)) {
+				if(teacher.getID()==ID) continue;
+				check_existed = true;
+				break;
+			}
+		}
+		return check_existed;
+
+	}
 }

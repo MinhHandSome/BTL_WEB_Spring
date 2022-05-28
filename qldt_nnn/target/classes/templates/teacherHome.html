@@ -2,52 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Logout</title>
+	<meta charset="utf-8">
+	<title th:utext="${title}"></title>
+	<link rel="stylesheet" th:href="@{/teacherPage.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-<style>
-	body {
-		font-family: sans-serif;
-	}
-
-	.btnMenu:link,
-	.btnMenu:visited {
-		background-color: #4e57a6;
-		color: white;
-		padding: 14px 25px;
-		border-radius: 5px;
-		margin: 0px 10px;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-	}
-
-	.btnMenu:hover,
-	.btnMenu:active {
-		background-color: #a1bff0;
-	}
-
-	.btnShowInfo:link,
-	.btnShowInfo:visited {
-		background-color: #85aded;
-		color: white;
-		padding: 14px 25px;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-	}
-
-	.btnShowInfo:hover,
-	.btnShowInfo:active {
-		background-color: #a1bff0;
-	}
-</style>
 
 <body>
-	<!-- Include _menu.html -->
-	<th:block th:include="/_menu"></th:block>
 
-	<h1>>Hello Teacher</h1>
-	<a class="btnShowInfo" th:href='@{/teacher_home/Info}'>My Info</a>
+
+	<div class="wrapper">
+		<input type="checkbox" id="btn" hidden>
+		<label for="btn" class="menu-btn">
+			<i class="fas fa-bars"></i>
+			<i class="fas fa-times"></i>
+		</label>
+		<nav id="sidebar">
+			<div class="title">Side Menu</div>
+			<ul class="list-items">
+				<li><a th:href='@{/teacher_home/Info}'><i class="fas fa-pencil-alt"></i> My Information</a></li>
+				<li><a href="/showTeacherClasses"><i class="fas fa-pencil-alt"></i>Show Time Table</a></li>
+
+				<br>
+				<br>
+				<br>
+				<br><br><br><br>
+				</br>
+				<br></br></br></br></br></br>
+				<li><a href="/"><i class="fas fa-home"></i>Home</a></li>
+				<li><a href="ChangePassword"><i class="fas fa-key"></i>Change password</a></li>
+				<li> <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}"><i
+							class="fas fa-sign-out-alt"></i> Logout</a>
+				</li>
+
+
+			</ul>
+		</nav>
+	</div>
+
 </body>
 
 </html>

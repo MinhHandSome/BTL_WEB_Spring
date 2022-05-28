@@ -6,6 +6,7 @@ import qldt.AccountChange;
 import qldt.AppUser;
 import qldt.Student;
 import qldt.Teacher;
+import qldt.TimeTable;
 import qldt.Subject;
 import qldt.Notification;
 import qldt.UserRole;
@@ -20,8 +21,10 @@ import qldt.service.NotificationSer;
 import qldt.service.StudentSer;
 import qldt.service.SubjectSer;
 import qldt.service.TeacherSer;
+import qldt.service.TimeTableSer;
 import qldt.service.UserRoleSer;
 import java.security.Principal;
+import java.sql.Time;
 import java.time.LocalDate;
 import org.aspectj.weaver.NewConstructorTypeMunger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +69,8 @@ public class AdminCon {
 	private ClassSer classSer;
 	@Autowired
 	private NotificationSer notificationSer;
+	@Autowired
+	private TimeTableSer timeTableSer;
 
 	@PostMapping("/addStudent")
 	public String addStudent(@ModelAttribute Student student, @ModelAttribute AppUser appUser,
@@ -75,10 +80,18 @@ public class AdminCon {
 		String encodedPassword = passwordEncoder.encode(appUser.getEncrytedPassword());
 		appUser.setEnabled(true);
 		appUser.setEncrytedPassword(encodedPassword);
-		if (studentSer.checkExistEmail(student.getEmail()) || studentSer.checkExistMSV(student.getMSV())
-				|| appUserSer.checkExistedUserName(appUser.getUserName())) {
-			session.setAttribute("msg", "Student Added Failed...");
-		} else {
+		if (studentSer.checkExistEmail(student.getEmail())) {
+			session.setAttribute("msg_email", "Email already exists");
+
+		}
+		if (studentSer.checkExistMSV(student.getMSV())) {
+			session.setAttribute("msg_studentID", "Student ID already exists ");
+		}
+		if (appUserSer.checkExistedUserName(appUser.getUserName())) {
+			session.setAttribute("msg_username", "Username already exists ");
+		}
+		if (!studentSer.checkExistEmail(student.getEmail()) && !studentSer.checkExistMSV(student.getMSV())
+				&& !appUserSer.checkExistedUserName(appUser.getUserName())) {
 			AppUser temp = appUserSer.addAppUser(appUser);
 			student.setAppUser(temp);
 			studentSer.addStudent(student);
@@ -86,11 +99,14 @@ public class AdminCon {
 			userRole.setAppRole(appRoleSer.findAppRole("ROLE_USER"));
 			userRoleSer.addUserRole(userRole);
 			session.setAttribute("msg", "Student Added Sucessfully...");
+			model.addAttribute("newUserRole", new UserRole());
+			model.addAttribute("newAppUser", new AppUser());
+			model.addAttribute("newStudent", new Student());
+		} else {
+			model.addAttribute("newUserRole", userRole);
+			model.addAttribute("newAppUser", appUser);
+			model.addAttribute("newStudent", student);
 		}
-
-		model.addAttribute("newUserRole", new UserRole());
-		model.addAttribute("newAppUser", new AppUser());
-		model.addAttribute("newStudent", new Student());
 
 		return "addStudent";
 	}
@@ -102,9 +118,14 @@ public class AdminCon {
 		String encodedPassword = passwordEncoder.encode(appUser.getEncrytedPassword());
 		appUser.setEnabled(true);
 		appUser.setEncrytedPassword(encodedPassword);
-		if (teacherSer.checkExistEmail(teacher.getEmail()) || appUserSer.checkExistedUserName(appUser.getUserName())) {
-			session.setAttribute("msg", "Teacher Added Failed...");
-		} else {
+		if (teacherSer.checkExistEmail(teacher.getEmail())) {
+			session.setAttribute("msg_email", "Email already exists");
+		}
+		if (appUserSer.checkExistedUserName(appUser.getUserName())) {
+			session.setAttribute("msg_username", "Username already exists");
+		}
+		if (!teacherSer.checkExistEmail(teacher.getEmail())
+				&& !appUserSer.checkExistedUserName(appUser.getUserName())) {
 			AppUser temp = appUserSer.addAppUser(appUser);
 			teacher.setAppUser(temp);
 			teacherSer.addTeacher(teacher);
@@ -112,11 +133,14 @@ public class AdminCon {
 			userRole.setAppRole(appRoleSer.findAppRole("ROLE_USER_TEACHER"));
 			userRoleSer.addUserRole(userRole);
 			session.setAttribute("msg", "Teacher Added Sucessfully...");
+			model.addAttribute("newUserRole", new UserRole());
+			model.addAttribute("newAppUser", new AppUser());
+			model.addAttribute("newTeacher", new Teacher());
+		} else {
+			model.addAttribute("newUserRole", userRole);
+			model.addAttribute("newAppUser", appUser);
+			model.addAttribute("newTeacher", teacher);
 		}
-
-		model.addAttribute("newUserRole", new UserRole());
-		model.addAttribute("newAppUser", new AppUser());
-		model.addAttribute("newTeacher", new Teacher());
 
 		return "addTeacher";
 	}
@@ -125,7 +149,10 @@ public class AdminCon {
 	public String addSubject(@ModelAttribute Subject subject, Model model, HttpSession session) {
 
 		if (subjectSer.checkExistNameSubject(subject.getName_subject())) {
-			session.setAttribute("msg", "Subject Added Failed...");
+			session.setAttribute("msg_subject", "Subject already exists");
+		
+			model.addAttribute("newSubject", subject);
+			return "addSubject";
 		} else {
 
 			subjectSer.addSubject(subject);
@@ -147,18 +174,25 @@ public class AdminCon {
 		classHP.setSubject(subject);
 
 		if (classSer.checkExistedRoomTime(classHP.getRoom(), classHP.getTime())) {
-			session.setAttribute("msg", "Class Added Failed...");
-		} else {
-
+			session.setAttribute("msg_roomtime", "Room " + classHP.getRoom() + " is not empty on " + classHP.getTime());
+			model.addAttribute("newClass", classHP);
+		}
+		if (classSer.checkBusyTeacher(classHP.getTeacher(), classHP.getTime())) {
+			session.setAttribute("msg_busy",
+					"Teacher " + classHP.getTeacher().getFullName() + " is busy on" + classHP.getTime());
+			model.addAttribute("newClass", classHP);
+		}
+		if (!classSer.checkExistedRoomTime(classHP.getRoom(), classHP.getTime())
+				&& !classSer.checkBusyTeacher(classHP.getTeacher(), classHP.getTime())) {
 			classSer.addClass(classHP);
 			session.setAttribute("msg", "Class Added Sucessfully...");
+			model.addAttribute("newClass", new ClassHP());
 		}
 
 		List<Subject> subjects = subjectSer.getSubject();
 		List<Teacher> teachers = teacherSer.getTeacher();
 		model.addAttribute("subjects", subjects);
 		model.addAttribute("teachers", teachers);
-		model.addAttribute("newClass", new ClassHP());
 
 		return "addClass";
 	}
@@ -388,12 +422,39 @@ public class AdminCon {
 	@PostMapping("/Studentshow/edit/UpdateStudent")
 	public String UpdateStudent(@ModelAttribute Student student, Model model, HttpSession session) {
 
-		studentSer.addStudent(student);
+		if (studentSer.checkExistEmailpassCurrent(student.getEmail(), student.getID())) {
+			session.setAttribute("msg_email", "Email already exists");
+		}
+		if (studentSer.checkExistMSVpassCurrent(student.getMSV(), student.getID())) {
+			session.setAttribute("msg_studentID", "Student ID already exists ");
+		}
 
-		model.addAttribute("newAppUser", new AppUser());
-		model.addAttribute("newStudent", new Student());
-		session.setAttribute("msg", "Student Edited Sucessfully...");
-		return "addStudent";
+		if (!studentSer.checkExistEmailpassCurrent(student.getEmail(), student.getID())
+				&& !studentSer.checkExistMSVpassCurrent(student.getMSV(), student.getID())) {
+			studentSer.addStudent(student);
+
+			session.setAttribute("msg", "Student Updated Sucessfully...");
+			return "redirect:/Studentshow";
+		}
+
+		model.addAttribute("student", student);
+		return "StudentEdit";
+	}
+
+	@PostMapping("/Teachershow/edit/UpdateTeacher")
+	public String UpdateTeacher(@ModelAttribute Teacher teacher, Model model, HttpSession session) {
+		if (teacherSer.checkExistEmailPassCurrent(teacher.getEmail(), teacher.getID())) {
+			session.setAttribute("msg_email", "Email already exists");
+		}
+		if (!teacherSer.checkExistEmailPassCurrent(teacher.getEmail(), teacher.getID())) {
+			teacherSer.addTeacher(teacher);
+			session.setAttribute("msg", "Teacher Edited Sucessfully...");
+			return "redirect:/Teachershow";
+		}
+
+		model.addAttribute("teacher", teacher);
+		return "TeacherEdit";
+
 	}
 
 	@PostMapping("/Notificationshow/edit/UpdateNotification")
@@ -429,10 +490,10 @@ public class AdminCon {
 			return "redirect:/Subjectshow";
 		}
 		model.addAttribute("subject", new Subject());
-		session.setAttribute("msg", "Subject ID:" + subject.getID() + " update failed");
+		session.setAttribute("msg_subject", "Name subject already exists");
 		Long idSubject_string = subject.getID();
 
-		return "redirect:/Subjectshow}";
+		return "SubjectEdit";
 
 	}
 
@@ -445,63 +506,68 @@ public class AdminCon {
 		classHP.setTeacher(teacher);
 		classHP.setSubject(subject);
 
-		if (classSer.checkExistedRoomTime(classHP.getRoom(), classHP.getTime())) {
-			session.setAttribute("msg", "...");
-		} else {
-
+		if (classSer.checkExistedRoomTimePassCurrent(classHP.getRoom(), classHP.getTime(),classHP.getID())) {
+			session.setAttribute("msg_roomtime", "Room " + classHP.getRoom() + " is not empty on " + classHP.getTime());
+			model.addAttribute("classHP", classHP);
+		}
+		if (classSer.checkBusyTeacherPassCurrent(classHP.getTeacher(), classHP.getTime(),classHP.getID())) {
+			session.setAttribute("msg_busy",
+					"Teacher " + classHP.getTeacher().getFullName() + " is busy on" + classHP.getTime());
+			model.addAttribute("classHP", classHP);
+		}
+		if (!classSer.checkExistedRoomTime(classHP.getRoom(), classHP.getTime())
+				&& !classSer.checkBusyTeacher(classHP.getTeacher(), classHP.getTime())) {
 			classSer.addClass(classHP);
 			session.setAttribute("msg", "Class Added Sucessfully...");
-			return "redirect:/Classshow";
+			model.addAttribute("classHP", new ClassHP());
 		}
 
 		List<Subject> subjects = subjectSer.getSubject();
 		List<Teacher> teachers = teacherSer.getTeacher();
 		model.addAttribute("subjects", subjects);
 		model.addAttribute("teachers", teachers);
-		model.addAttribute("classHP", new ClassHP());
 
 		return "ClassEdit";
-		// return "redirect:/Classshow";
-	}
-
-	@PostMapping("/Teachershow/edit/UpdateTeacher")
-	public String UpdateTeacher(@ModelAttribute Teacher teacher, Model model, HttpSession session) {
-
-		teacherSer.addTeacher(teacher);
-
-		model.addAttribute("newAppUser", new AppUser());
-		model.addAttribute("newTeacher", new Teacher());
-		session.setAttribute("msg", "Teacher Edited Sucessfully...");
-		return "redirect:/Teachershow";
 	}
 
 	@PostMapping("/Studentshow/edit_account/UpdateAccountStudent")
 	public String UpdateAccountStudent(@ModelAttribute AppUser appUser, Model model, HttpSession session) {
+		if (appUserSer.checkExistedUserNamePassCurrent(appUser.getUserName(), appUser.getUserId())) {
+			session.setAttribute("msg_username", "Username already exists");
+		}
+		if (!appUserSer.checkExistedUserNamePassCurrent(appUser.getUserName(), appUser.getUserId())) {
 
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String encodedPassword = passwordEncoder.encode(appUser.getEncrytedPassword());
-		appUser.setEnabled(true);
-		appUser.setEncrytedPassword(encodedPassword);
-		appUserSer.addAppUser(appUser);
-
-		model.addAttribute("newAppUser", new AppUser());
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String encodedPassword = passwordEncoder.encode(appUser.getEncrytedPassword());
+			appUser.setEnabled(true);
+			appUser.setEncrytedPassword(encodedPassword);
+			appUserSer.addAppUser(appUser);
 //		model.addAttribute("newStudent", new Student());
-		session.setAttribute("msg", "User Student edited Sucessfully...");
-		return "redirect:/Studentshow";
+			session.setAttribute("msg", "Account Student updated Sucessfully...");
+			return "redirect:/Studentshow";
+		}
+		model.addAttribute("newAppUser", new AppUser());
+		return "EditAccountStudent";
 	}
 
 	@PostMapping("/Teachershow/edit_account/UpdateAccountTeacher")
 	public String UpdateAccountTeacher(@ModelAttribute AppUser appUser, Model model, HttpSession session) {
+		if (appUserSer.checkExistedUserNamePassCurrent(appUser.getUserName(), appUser.getUserId())) {
+			session.setAttribute("msg_username", "Username already exists");
+		}
+		if (!appUserSer.checkExistedUserNamePassCurrent(appUser.getUserName(), appUser.getUserId())) {
 
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String encodedPassword = passwordEncoder.encode(appUser.getEncrytedPassword());
-		appUser.setEnabled(true);
-		appUser.setEncrytedPassword(encodedPassword);
-		appUserSer.addAppUser(appUser);
-
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String encodedPassword = passwordEncoder.encode(appUser.getEncrytedPassword());
+			appUser.setEnabled(true);
+			appUser.setEncrytedPassword(encodedPassword);
+			appUserSer.addAppUser(appUser);
+//		model.addAttribute("newStudent", new Student());
+			session.setAttribute("msg", "Account Teacher updated Sucessfully...");
+			return "redirect:/Teachershow";
+		}
 		model.addAttribute("newAppUser", new AppUser());
-		session.setAttribute("msg", "User teacher edited Sucessfully...");
-		return "redirect:/Teachershow";
+		return "EditAccountTeacher";
 	}
 
 	@GetMapping("/Studentshow/delete/{ID}")
@@ -510,32 +576,44 @@ public class AdminCon {
 		AppUser appUser = student.getAppUser();
 		Long idUser = appUser.getUserId();
 		UserRole ul = userRoleSer.findAppRole(appUser);
-
+		List<TimeTable> timetables = timeTableSer.findTimeTablebyStudenT(student);
+		if (timetables != null) {
+			for (TimeTable timetable : timetables) {
+				timeTableSer.deleteByTimeTableId(timetable.getID());
+			}
+		}
 		userRoleSer.deleteUserRoleByAppUser(ul.getId());
 		studentSer.deleteByStudentId(ID);
 		appUserSer.deleteByAppUserId(idUser);
-		session.setAttribute("msg", "The User ID " + ID + " Deleted Succesfully");
+		session.setAttribute("msg", "The Student ID:" + student.getMSV() + " Deleted Succesfully");
 		return "redirect:/Studentshow";
 	}
 
 	@GetMapping("/Subjectshow/delete/{ID}")
 	public String deleteSubject(@PathVariable("ID") Long ID, HttpSession session) {
 		Subject subject = subjectSer.getSjdByID(ID);
-		ClassHP classHP = classSer.findClassbySubject(subject);
-		if (classHP != null) {
-			classSer.deleteClasById(classHP.getID());
+		List<ClassHP> classHPs = classSer.findClassbySubject(subject);
+		if (classHPs != null) {
+			for (ClassHP classHP : classHPs)
+				classSer.deleteClasById(classHP.getID());
 		}
 		subjectSer.deleteBySubjectId(ID);
-		session.setAttribute("msg", "The Subject ID " + ID + " Deleted Succesfully");
+		session.setAttribute("msg", "The Subject ID: SJ" + ID + " Deleted Succesfully");
 		return "redirect:/Subjectshow";
 	}
 
 	@GetMapping("/Teachershow/delete/{ID}")
 	public String deleteTeacher(@PathVariable("ID") Long ID, HttpSession session) {
 		Teacher teacher = teacherSer.getTeacherByID(ID);
-		ClassHP classHP = classSer.findClassByTeacher(teacher);
-		if (classHP != null) {
-			classSer.deleteClasById(classHP.getID());
+		List<ClassHP> classHPs = classSer.findClassByTeacher(teacher);
+		if (classHPs != null) {
+			for (ClassHP classHP : classHPs) {
+				List<TimeTable> timetables = timeTableSer.findTimeTablebyClassHP(classHP);
+				for (TimeTable timetable : timetables) {
+					timeTableSer.deleteByTimeTableId(timetable.getID());
+				}
+				classSer.deleteClasById(classHP.getID());
+			}
 		}
 		AppUser appUser = teacher.getAppUser();
 		Long idUser = appUser.getUserId();
@@ -544,15 +622,21 @@ public class AdminCon {
 		userRoleSer.deleteUserRoleByAppUser(ul.getId());
 		teacherSer.deleteTeacherId(ID);
 		appUserSer.deleteByAppUserId(idUser);
-		session.setAttribute("msg", "The User ID " + ID + " Deleted Succesfully");
+		session.setAttribute("msg", "The Teacher ID: TE" + ID + " Deleted Succesfully");
 		return "redirect:/Teachershow";
 	}
 
 	@GetMapping("/Classshow/delete/{ID}")
 	public String deleteClass(@PathVariable("ID") Long ID, HttpSession session) {
+		List<TimeTable> timetables = timeTableSer.findTimeTablebyClassHP(classSer.getCldByID(ID));
+		if (timetables != null) {
+			for (TimeTable timetable : timetables) {
+				timeTableSer.deleteByTimeTableId(timetable.getID());
 
+			}
+		}
 		classSer.deleteClasById(ID);
-		session.setAttribute("msg", "The Subject ID " + ID + " Deleted Succesfully");
+		session.setAttribute("msg", "The Class ID: CL" + ID + " Deleted Succesfully");
 		return "redirect:/Classshow";
 	}
 

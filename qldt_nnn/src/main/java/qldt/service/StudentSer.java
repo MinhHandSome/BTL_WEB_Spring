@@ -50,6 +50,21 @@ public class StudentSer {
 
 	}
 
+	public boolean checkExistMSVpassCurrent(String MSV, long ID) {
+		List<Student> students = studentRepo.findAll();
+		boolean check_existed = false;
+		for (Student student : students) {
+			if (student.getMSV().equalsIgnoreCase(MSV)) {
+				if (student.getID() == ID)
+					continue;
+				check_existed = true;
+				break;
+			}
+		}
+		return check_existed;
+
+	}
+
 	public boolean checkExistEmail(String email) {
 		List<Student> students = studentRepo.findAll();
 		boolean check_existed = false;
@@ -61,6 +76,31 @@ public class StudentSer {
 		}
 		return check_existed;
 
+	}
+
+	public boolean checkExistEmailpassCurrent(String email, Long ID) {
+		List<Student> students = studentRepo.findAll();
+		boolean check_existed = false;
+		for (Student student : students) {
+			if (student.getEmail().equalsIgnoreCase(email)) {
+				if (student.getID() == ID)
+					continue;
+				check_existed = true;
+				break;
+			}
+		}
+		return check_existed;
+
+	}
+
+	public Student getStbyUserName(String username) {
+		List<Student> students = studentRepo.findAll();
+		for (Student student : students) {
+			if (student.getAppUser().getUserName().equalsIgnoreCase(username)) {
+				return student;
+			}
+		}
+		return null;
 	}
 
 }
