@@ -283,7 +283,7 @@ public class AdminCon {
 
 		if (checkExisted == false) {
 			session.setAttribute("msg", "Old Password is incorrect...");
-		} else if (accountChange.getNewPassword().equals(accountChange.getConfirmPassword()) == false) {
+		} else if (accountChange.getNewPassword().equalsIgnoreCase(accountChange.getConfirmPassword()) == false) {
 			session.setAttribute("msg", "New password is the same Confirm password");
 		} else {
 			String encodedPassword = passwordEncoder.encode(accountChange.getNewPassword());
