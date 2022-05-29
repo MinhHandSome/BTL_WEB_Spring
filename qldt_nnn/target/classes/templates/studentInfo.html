@@ -3,79 +3,21 @@
 
 <head>
 	<title>Info</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/info.css}" />
 </head>
-<style>
-	body {
-		font-family: sans-serif;
-	}
-	.btnMenu:link,
-	.btnMenu:visited {
-		background-color: #4e57a6;
-		color: white;
-		padding: 14px 25px;
-		border-radius: 5px;
-		margin: 0px 10px;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-	}
 
-	.btnMenu:hover,
-	.btnMenu:active {
-		background-color: #a1bff0;
-	}
-	th,
-	td {
-		border: 1px solid #352f91;
-		padding: 8px;
-	}
-
-	table {
-		border-collapse: collapse;
-		border: 1px solid #352f91;
-		text-align: center;
-		vertical-align: middle;
-	}
-
-	thead th {
-		width: 9%;
-	}
-
-	thead {
-		background-color: #352f91;
-		color: white;
-		font-size: 0.875rem;
-		text-transform: uppercase;
-		letter-spacing: 2%;
-	}
-
-
-	tbody tr:nth-child(odd) {
-		background-color: #fff;
-	}
-
-	tbody tr:nth-child(even) {
-		background-color: #eee;
-	}
-</style>
 
 <body>
 	<!-- Include _menu.html -->
-	<th:block th:include="/_menu"></th:block>
 
-	<h1>>Hello Student</h1>
+
+<button  style ="margin-top: 10px;"onclick="window.location.href='/student_home'">Back</button>
+
 	<table class="table table-striped">
+		<caption> Personal Information </caption>
 		<thead>
 			<tr>
-				<th scope="col">ID</th>
-				<th scope="col">FullName</th>
-				<th scope="col">DOB</th>
-				<th scope="col">Grade</th>
-				<th scope="col">MSV</th>
-				<th scope="col">Address</th>
-				<th scope="col">Phone number</th>
-				<th scope="col">Email</th>
-				<th scope="col">USERNAME</th>
+
 
 
 			</tr>
@@ -83,18 +25,43 @@
 		<tbody>
 
 
-			<tr th:each="model:${student}">
-				<td th:text="${model.ID}"></td>
-				<td th:text="${model.fullName}"></td>
-				<td th:text="${model.DOB}"></td>
-				<td th:text="${model.Grade}"></td>
-				<td th:text="${model.MSV}"></td>
-				<td th:text="${model.Address}"></td>
-				<td th:text="${model.phoneNumber}"></td>
-				<td th:text="${model.email}"></td>
-				<td th:text="${model.appUser.userName}"></td>
 
+			<tr>
+				<td><label>Fullname</label></td>
+				<td th:text="${student.fullName}"></td>
 			</tr>
+			<tr>
+				<td><label>DOB</label></td>
+				<td th:text="${student.DOB}"></td>
+			</tr>
+			<tr>
+				<td><label>Grade</label></td>
+				<td th:text="${student.Grade}"></td>
+			</tr>
+			<tr>
+				<td><label>Student ID</label></td>
+				<td th:text="${student.MSV}"></td>
+			</tr>
+			<tr>
+				<td><label>Address</label></td>
+				<td th:text="${student.Address}"></td>
+			</tr>
+			<tr>
+				<td><label>Phone number</label></td>
+				<td th:text="${student.phoneNumber}"></td>
+			</tr>
+			<tr>
+				<td><label>Email</label></td>
+				<td th:text="${student.email}"></td>
+			</tr>
+			<tr>
+				<td><label>Username</label></td>
+				<td th:text="${student.appUser.userName}"></td>
+			</tr>
+
+
+
+
 		</tbody>
 	</table>
 </body>

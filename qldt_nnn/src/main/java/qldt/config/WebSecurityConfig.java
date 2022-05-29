@@ -21,73 +21,67 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+	@Autowired
+	private UserDetailsServiceImpl userDetailsService;
 
-    @Autowired
-    private DataSource dataSource;
+	@Autowired
+	private DataSource dataSource;
 
 //    @Bean
 //    public BCryptPasswordEncoder passwordEncoder() {
 //        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 //        return bCryptPasswordEncoder;
 //    }
-    AppConfig appConfig = new AppConfig();
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	AppConfig appConfig = new AppConfig();
 
-        // Sét đặt dịch vụ để tìm kiếm User trong Database.
-        // Và sét đặt PasswordEncoder.
-        auth.userDetailsService(userDetailsService).passwordEncoder(appConfig.passwordEncoder());
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-    }
+		auth.userDetailsService(userDetailsService).passwordEncoder(appConfig.passwordEncoder());
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+	}
 
-        http.csrf().disable();
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
 
-        // Các trang không yêu cầu login
-        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
+		http.csrf().disable();
 
-        // Trang /userInfo yêu cầu phải login với vai trò ROLE_USER hoặc ROLE_ADMIN.
-        // Nếu chưa login, nó sẽ redirect tới trang /login.
-        http.authorizeRequests().antMatchers("/userInfo").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN','ROLE_USER_TEACHER')");
-        http.authorizeRequests().antMatchers("/student_home").access("hasRole('ROLE_USER')");
+		http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
+
+		http.authorizeRequests().antMatchers("/userInfo")
+				.access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN','ROLE_USER_TEACHER')");
+		http.authorizeRequests().antMatchers("/student_home").access("hasRole('ROLE_USER')");
 //        http.authorizeRequests().antMatchers("/student_home").access("hasRole('ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/teacher_home").access("hasRole('ROLE_USER_TEACHER')");
-        // Trang chỉ dành cho ADMIN
-        http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
-      
+		http.authorizeRequests().antMatchers("/teacher_home").access("hasRole('ROLE_USER_TEACHER')");
+		// Trang chỉ dành cho ADMIN
+		http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
 
-        // Khi người dùng đã login, với vai trò XX.
-        // Nhưng truy cập vào trang yêu cầu vai trò YY,
-        // Ngoại lệ AccessDeniedException sẽ ném ra.
-        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+		
+		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 
-        // Cấu hình cho Login Form.
-        http.authorizeRequests().and().formLogin()//
-                // Submit URL của trang login
-                .loginProcessingUrl("/j_spring_security_check") // Submit URL
-                .loginPage("/login")//
-                .defaultSuccessUrl("/userAccountInfo")//
-                .failureUrl("/login?error=true")//
-                .usernameParameter("username")//
-                .passwordParameter("password")
-                // Cấu hình cho Logout Page.
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
+		// Cấu hình cho Login Form.
+		http.authorizeRequests().and().formLogin()//
+				// Submit URL của trang login
+				.loginProcessingUrl("/j_spring_security_check") // Submit URL
+				.loginPage("/login")//
+				.defaultSuccessUrl("/userAccountInfo")//
+				.failureUrl("/login?error=true")//
+				.usernameParameter("username")//
+				.passwordParameter("password")
+				// Cấu hình cho Logout Page.
+				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
 
-        // Cấu hình Remember Me.
-        http.authorizeRequests().and() //
-                .rememberMe().tokenRepository(this.persistentTokenRepository()) //
-                .tokenValiditySeconds(1 * 24 * 60 * 60); // 24h
+		// Cấu hình Remember Me.
+		http.authorizeRequests().and() //
+				.rememberMe().tokenRepository(this.persistentTokenRepository()) //
+				.tokenValiditySeconds(1 * 24 * 60 * 60); // 24h
 
-    }
+	}
 
-    @Bean
-    public PersistentTokenRepository persistentTokenRepository() {
-        InMemoryTokenRepositoryImpl memory = new InMemoryTokenRepositoryImpl();
-        return memory;
-    }
+	@Bean
+	public PersistentTokenRepository persistentTokenRepository() {
+		InMemoryTokenRepositoryImpl memory = new InMemoryTokenRepositoryImpl();
+		return memory;
+	}
 
 }
